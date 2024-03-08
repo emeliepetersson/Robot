@@ -6,13 +6,33 @@ import { setupRobot } from './helpers/robot/robot.ts'
 import { StartingValues } from './helpers/room/room.types.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <img src="${robotImg}" class="image" alt="Robot emoji" />
-    <h1>Robot Roberta</h1>
+
+  <img src="${robotImg}" class="image" alt="Robot emoji" />
+  <h1>Robot Roberta</h1>
+  <button id="language" class="-secondary -small" type="button">In English</button>
   
+  <div class="wrapper">
     <div id="house"></div>
-      
-    <button id="dialogue" type="button">Ange kommando!</button>
+
+    <div class="instructions">
+      <div class="card">
+        <h2>Instruktioner</h2>
+
+        <ul>
+          <li>
+            V: Sväng vänster
+          </li>
+          <li>
+            H: Sväng höger
+          </li>
+          <li>
+            G: Gå framåt 
+          </li>
+        </ul>
+      </div>
+
+      <button id="dialogue" type="button">Ange kommando</button>
+    </div>
   </div>
 `
 

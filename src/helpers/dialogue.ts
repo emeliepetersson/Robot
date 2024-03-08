@@ -12,6 +12,10 @@ const setupDialogue = (button: HTMLButtonElement): void => {
   // }
   // element.addEventListener('click', () => setCounter(counter + 1))
   // setCounter(0)
+
+  button.addEventListener('click', () => {
+    console.log('Button clicked')
+  });
 }
 
 const listenForUserInput = () => {
