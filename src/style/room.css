@@ -1,0 +1,9 @@
+#room {
+    margin: 24px; 
+    border: solid 1px #000;
+    display: block;
+}
+
+#room.circle {
+    border-radius: 50%;
+}
