@@ -11,6 +11,7 @@ const showNotification = (isShowing: boolean, isError?: boolean, message?: strin
     notification.innerHTML = message || '';
     notification.style.display = isShowing ? 'block' : 'none';
     notification.classList.add(isError ? '-error' : '-success');
+    notification.classList.remove(isError ? '-success' : '-error');
 };
 
 export { showNotification }
