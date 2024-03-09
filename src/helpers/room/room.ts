@@ -23,6 +23,14 @@ const setupRoom = (house: HTMLDivElement, squares: number, shape: Shapes): void 
     // TODO: add error handling
     if(!context) return;
 
+    if(shape === 'square') {
+        // Move the origo (0,0) to the bottom left corner
+        context.translate(0, room.height);
+
+        // Flip the y-axis
+        context.scale(1, -1);
+    }
+
     if(shape === 'circle') {
         // Calculate the center of the canvas
         const transX = room.width * 0.5;
