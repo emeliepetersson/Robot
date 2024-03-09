@@ -1,3 +1,4 @@
+import { showNotification } from "./notification";
 import { giveRobertaCommands } from "./robot/robot";
 
 /**
@@ -24,7 +25,7 @@ const setupDialogue = (button: HTMLButtonElement): void => {
       const output = document.querySelector<HTMLParagraphElement>('.output')!;
 
       if(output.innerHTML.length > 0) giveRobertaCommands(output);
-      else showNotification(true, 'Inga kommandon angivna!');
+      else showNotification(true, true, 'Inga kommandon är angivna!');
       
     }
   });
@@ -68,6 +69,9 @@ const handleKeyboardEvents = (event: KeyboardEvent): void => {
       else output.innerHTML = output.innerHTML.slice(0, -1);
       break;
 
+    case 'Enter':
+      break;
+
     default:
       // For any other key, wrap the invalid letter in a span to highlight it as invalid
       const invalidLetter = document.createElement('span');
@@ -75,23 +79,9 @@ const handleKeyboardEvents = (event: KeyboardEvent): void => {
       if(isLetter(event.key)) output.innerHTML += invalidLetter.outerHTML;
   
       // Show the notification
-      showNotification(true, 'Ett ogiltigt värde har angivits!');
+      showNotification(true, true,'Ett ogiltigt värde har angivits!');
       break;
    }
-}
-
-/**
- * Used to show/hide a notification
- * 
- * @param {boolean} isShowing 
- * @param {string} message
- * @returns {void}
- */
-const showNotification = (isShowing: boolean, message: string = ''): void => {
-  const notification = document.querySelector<HTMLDivElement>('.notification')!;
-
-  notification.innerHTML = message;
-  notification.style.display = isShowing ? 'block' : 'none';
 }
 
 /**

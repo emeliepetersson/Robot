@@ -1,0 +1,22 @@
+.notification {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    background-color: rgb(121, 186, 209);
+    color: #fff;
+    padding: 1.2rem 2.4rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.4rem;
+    display: none;
+}
+
+.notification.-error {
+    background-color: rgb(249, 61, 61);
+}
+
+.notification.-error {
+    background-color: rgb(121, 209, 129);
+}

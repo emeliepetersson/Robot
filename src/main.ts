@@ -53,7 +53,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
 const startingValues: StartingValues = {
   shape: 'square',
-  position: { x: 0, y: 0 },
+  position: { x: 1, y: 2 },
   amountOfSquares: 5,
   direction: 'north' // When the program starts the robot is always facing north
 }

@@ -53,18 +53,3 @@
 .output span {
     color: rgb(249, 61, 61);
 }
-
-.notification {
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.02rem;
-    background-color: rgb(249, 61, 61);
-    color: #fff;
-    padding: 1.2rem 2.4rem;
-    border-radius: 0.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2.4rem;
-    display: none;
-}
