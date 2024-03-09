@@ -1,3 +1,5 @@
+import { giveRobertaInstructions } from "./robot/robot";
+
 /**
  * Add an event listener to the button that starts the dialogue.
  * 
@@ -7,60 +9,75 @@
 const setupDialogue = (button: HTMLButtonElement): void => {
   
   button.addEventListener('click', () => {
-    const isListening = button.innerHTML === 'Klar';
-    isListening ? button.innerHTML = 'Ange kommando' : button.innerHTML = 'Klar';
+    const shouldStartListening = button.innerHTML === 'Ange kommando';
+    shouldStartListening ? button.innerHTML = 'Klar' : button.innerHTML = 'Ange kommando';
 
     // Show the description
     const description = document.querySelector<HTMLParagraphElement>('#description')!;
-    description.innerHTML = isListening ? '' : 'Klicka på tangenterna V, H eller G.';
+    description.innerHTML = shouldStartListening ? 'Klicka på tangenterna V, H eller G.' : '';
 
-    // Start listening for user input
-    listenForUserInput();
+    // Start/stop listening for user input
+    listenForUserInput(shouldStartListening);
+
+    if(!shouldStartListening) {
+      // Get the final output and pass it to the robot
+      const output = document.querySelector<HTMLParagraphElement>('.output')!;
+
+      if(output.innerHTML.length > 0) giveRobertaInstructions(output);
+      else showNotification(true, 'Inga instruktioner angivna!');
+      
+    }
   });
 }
 
 /**
  * Add an event listener to the DOM to listen for keyboard input.
  * 
+ * @param {boolean} shouldStartListening
  * @returns {void}
  */
-const listenForUserInput = (): void => {
+const listenForUserInput = (shouldStartListening: boolean): void => {
+  if(shouldStartListening) document.addEventListener('keydown', handleKeyboardEvents);
+  else document.removeEventListener('keydown', handleKeyboardEvents);
+}
 
-  // Listen for keyboard input and output it to the DOM, 
-  // and tell the user if an invalid letter is given.
-  document.addEventListener('keydown', (event) => {
-    if(event.key !== 'Enter') event.preventDefault();
-    const output = document.querySelector<HTMLParagraphElement>('.output')!;
+/**
+ * Check keyboard inputs and write visual feedback to the DOM
+ * 
+ * @param {KeyboardEvent} event
+ * @returns {void}
+ */
+const handleKeyboardEvents = (event: KeyboardEvent): void => {
+  if(event.key !== 'Enter') event.preventDefault();
+  const output = document.querySelector<HTMLParagraphElement>('.output')!;
 
-    switch (event.key) {
-      case 'v':
-      case 'h':
-      case 'g':
-        // If the key is 'v', 'h', or 'g', append it to the output and hide the notification
-        output.innerHTML += event.key;
-    
-        // Hide the notification
-        showNotification(false);
-        break;
+  switch (event.key) {
+    case 'v':
+    case 'h':
+    case 'g':
+      // If the key is 'v', 'h', or 'g', append it to the output and hide the notification
+      output.innerHTML += event.key;
+  
+      // Hide the notification
+      showNotification(false);
+      break;
 
-      case 'Backspace':
-        // If the key is 'backspace', remove the last letter/span from the output
-        if(output.lastChild?.nodeName === 'SPAN') output.removeChild(output.lastChild);
-        else output.innerHTML = output.innerHTML.slice(0, -1);
-        break;
+    case 'Backspace':
+      // If the key is 'backspace', remove the last letter/span from the output
+      if(output.lastChild?.nodeName === 'SPAN') output.removeChild(output.lastChild);
+      else output.innerHTML = output.innerHTML.slice(0, -1);
+      break;
 
-      default:
-        // For any other key, wrap the invalid letter in a span to highlight it as invalid
-        const invalidLetter = document.createElement('span');
-        invalidLetter.innerHTML = event.key;
-        if(isLetter(event.key)) output.innerHTML += invalidLetter.outerHTML;
-    
-        // Show the notification
-        showNotification(true, 'Ett ogiltigt värde har angivits!');
-        break;
-     }
-     
-  });
+    default:
+      // For any other key, wrap the invalid letter in a span to highlight it as invalid
+      const invalidLetter = document.createElement('span');
+      invalidLetter.innerHTML = event.key;
+      if(isLetter(event.key)) output.innerHTML += invalidLetter.outerHTML;
+  
+      // Show the notification
+      showNotification(true, 'Ett ogiltigt värde har angivits!');
+      break;
+   }
 }
 
 /**
