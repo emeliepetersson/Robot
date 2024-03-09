@@ -10,6 +10,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <img src="${robotImg}" class="image" alt="Robot emoji" />
   <h1>Robot Roberta</h1>
   <button id="language" class="-secondary -small" type="button">In English</button>
+
+  <div id="backdrop" class="backdrop"></div>
+  <div id="modal" class="modal">
+   <div class="modal-content">
+      <h2></h2>
+      <p></p>
+      <button></button>
+    </div>
+  </div>
   
   <div class="wrapper">
     <div id="house"></div>

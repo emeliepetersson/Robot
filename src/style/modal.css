@@ -1,0 +1,56 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    background-color: #fff;
+    border-radius: 0.5rem;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 40rem;
+    min-height: 30rem;
+    max-height: 80vh;
+    overflow-x: scroll;
+}
+
+.backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.modal h2 {
+    font-size: 2.4rem;
+    margin: 0;
+    padding: 2.4rem;
+    border-bottom: 1px solid #e0e0e0;
+    width: 100%;
+}
+
+.modal p {
+    padding: 3.2rem;
+    font-size: 2.4rem;
+    width: 100%;
+    overflow-wrap: break-word;
+}
+
+.modal button {
+    text-transform: uppercase;
+    margin: 3.2rem;
+    min-width: 20rem;
+    position: fixed;
+    bottom: 0;
+}
