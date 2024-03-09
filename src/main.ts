@@ -3,7 +3,7 @@ import robotImg from '/robot.png'
 import { setupDialogue } from './helpers/dialogue.ts'
 import { setupRoom } from './helpers/room/room.ts'
 import { setupRobot } from './helpers/robot/robot.ts'
-import { StartingValues } from './helpers/room/room.types.ts'
+import { initialValues } from './helpers/room/room.types.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
@@ -51,18 +51,11 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </div>
 `
 
-const startingValues: StartingValues = {
-  shape: 'square',
-  position: { x: 1, y: 2 },
-  amountOfSquares: 5,
-  direction: 'north' // When the program starts the robot is always facing north
-}
-
 // Render a room with the given shape and number of squares
-setupRoom(document.querySelector<HTMLDivElement>('#house')!, startingValues.amountOfSquares, startingValues.shape)
+setupRoom(document.querySelector<HTMLDivElement>('#house')!, initialValues.amountOfSquares, initialValues.shape)
 
 // Place the robot at a given position in the room
-setupRobot(document.querySelector<HTMLCanvasElement>('#room')!, startingValues.position, startingValues.direction)
+setupRobot(document.querySelector<HTMLCanvasElement>('#room')!, initialValues.position, initialValues.direction)
 
 // Add an event listener to the button that starts the dialogue
 setupDialogue(document.querySelector<HTMLButtonElement>('#dialogue')!)
