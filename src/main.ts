@@ -32,6 +32,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       </div>
 
       <button id="dialogue" type="button">Ange kommando</button>
+
+      <p id="description" class="description"></p>
+
+      <p class="output"></p>
+
+      <div class="notification"></div>
     </div>
   </div>
 `

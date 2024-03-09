@@ -22,4 +22,12 @@ const setupRobot = (room: HTMLCanvasElement, position: Position): void => {
     };
 };
 
+// Move Roberta around the room
+// This can be used in setupRobot inital render
+const giveRobertaInstructions = () => {
+
+    // Call out the final destionation
+    // this is done with a switch case that increment/decrements the start x/y positions
+}
+
 export { setupRobot };
