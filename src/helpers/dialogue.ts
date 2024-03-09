@@ -1,4 +1,4 @@
-import { giveRobertaInstructions } from "./robot/robot";
+import { giveRobertaCommands } from "./robot/robot";
 
 /**
  * Add an event listener to the button that starts the dialogue.
@@ -9,8 +9,8 @@ import { giveRobertaInstructions } from "./robot/robot";
 const setupDialogue = (button: HTMLButtonElement): void => {
   
   button.addEventListener('click', () => {
-    const shouldStartListening = button.innerHTML === 'Ange kommando';
-    shouldStartListening ? button.innerHTML = 'Klar' : button.innerHTML = 'Ange kommando';
+    const shouldStartListening = button.innerHTML === 'Ange kommandon';
+    shouldStartListening ? button.innerHTML = 'Klar' : button.innerHTML = 'Ange kommandon';
 
     // Show the description
     const description = document.querySelector<HTMLParagraphElement>('#description')!;
@@ -23,8 +23,8 @@ const setupDialogue = (button: HTMLButtonElement): void => {
       // Get the final output and pass it to the robot
       const output = document.querySelector<HTMLParagraphElement>('.output')!;
 
-      if(output.innerHTML.length > 0) giveRobertaInstructions(output);
-      else showNotification(true, 'Inga instruktioner angivna!');
+      if(output.innerHTML.length > 0) giveRobertaCommands(output);
+      else showNotification(true, 'Inga kommandon angivna!');
       
     }
   });

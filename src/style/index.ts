@@ -1,5 +1,5 @@
 import './global.css'
 import './room.css'
 import './robot.css'
-import './instructions.css'
+import './commands.css'
 import './modal.css'

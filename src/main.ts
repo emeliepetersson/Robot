@@ -23,9 +23,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="wrapper">
     <div id="house"></div>
 
-    <div class="instructions">
+    <div class="commands">
       <div class="card">
-        <h2>Instruktioner</h2>
+        <h2>Giltiga kommandon:</h2>
 
         <ul>
           <li>
@@ -40,7 +40,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         </ul>
       </div>
 
-      <button id="dialogue" type="button">Ange kommando</button>
+      <button id="dialogue" type="button">Ange kommandon</button>
 
       <p id="description" class="description"></p>
 
@@ -53,15 +53,16 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
 const startingValues: StartingValues = {
   shape: 'square',
-  position: { x: 1, y: 2 },
-  amountOfSquares: 5
+  position: { x: 0, y: 0 },
+  amountOfSquares: 5,
+  direction: 'north' // When the program starts the robot is always facing north
 }
 
 // Render a room with the given shape and number of squares
 setupRoom(document.querySelector<HTMLDivElement>('#house')!, startingValues.amountOfSquares, startingValues.shape)
 
 // Place the robot at a given position in the room
-setupRobot(document.querySelector<HTMLCanvasElement>('#room')!, startingValues.position)
+setupRobot(document.querySelector<HTMLCanvasElement>('#room')!, startingValues.position, startingValues.direction)
 
-// TODO
+// Add an event listener to the button that starts the dialogue
 setupDialogue(document.querySelector<HTMLButtonElement>('#dialogue')!)
