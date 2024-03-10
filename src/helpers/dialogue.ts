@@ -10,8 +10,10 @@ import { giveRobertaCommands } from "./robot/robot";
 const setupDialogue = (button: HTMLButtonElement): void => {
   
   button.addEventListener('click', () => {
+    const output = document.querySelector<HTMLParagraphElement>('.output')!;
     const shouldStartListening = button.innerHTML === 'Ange kommandon';
     shouldStartListening ? button.innerHTML = 'Klar' : button.innerHTML = 'Ange kommandon';
+    if(shouldStartListening) output.innerHTML = '';
 
     // Show the description
     const description = document.querySelector<HTMLParagraphElement>('#description')!;
@@ -21,9 +23,7 @@ const setupDialogue = (button: HTMLButtonElement): void => {
     listenForUserInput(shouldStartListening);
 
     if(!shouldStartListening) {
-      // Get the final output and pass it to the robot
-      const output = document.querySelector<HTMLParagraphElement>('.output')!;
-
+      // Pass the output to the robot
       if(output.innerHTML.length > 0) giveRobertaCommands(output);
       else showNotification(true, true, 'Inga kommandon är angivna!');
       

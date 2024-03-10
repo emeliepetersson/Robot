@@ -1,6 +1,6 @@
 import { showModal } from "../modal/modal";
 import { showNotification } from "../notification";
-import { Directions } from "../room/room.types";
+import { Directions, initialValues } from "../room/room.types";
 import { Position, RobotSize } from "./robot.types";
 import robotImg from '/robot.png'
 
@@ -56,16 +56,26 @@ const giveRobertaCommands = (output: HTMLDivElement): void => {
  * @returns {void}
  */
 const moveRoberta = (): void => {
-    commands.split('').forEach((command: string) => {
+    if(!context) return;
 
-        // If the command is "G" (go forward) we update the position
-        // Otherwise we update the direction
-        if(command.toUpperCase() === "G") updatePosition();
-        else updateDirection(command);
-    });
+    for (const command of commands) {
+        try {
+            // If the command is "G" (go forward) we update the position
+            // Otherwise we update the direction
+            if(command.toUpperCase() === "G") updatePosition();
+            else updateDirection(command);
 
-    // Show a notification with the final position and direction
-    showNotification(true, false, `Roberta är nu på position x: ${currentPosition.x}, y: ${currentPosition.y} och tittar åt ${currentDirection}`);
+            // Show a notification with the final position and direction
+            showNotification(true, false, `Roberta är nu på position x: ${currentPosition.x}, y: ${currentPosition.y} och tittar åt ${currentDirection}`);
+        } catch (err) {
+            showNotification(true, true, `Roberta kan inte gå utanför rummet! Hon stannade på x: ${currentPosition.x}, y: ${currentPosition.y} och tittar åt ${currentDirection}`);
+            break;
+        }
+    }
+
+    // Clear the canvas and draw the robot at the new position
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    context.drawImage(img, currentPosition.x, currentPosition.y, RobotSize.width, RobotSize.height); 
 }
 
 /**
@@ -73,9 +83,7 @@ const moveRoberta = (): void => {
  * 
  * @returns {void}
  */
-const updatePosition = (): void => {
-    if(!context) return;
-    
+const updatePosition = (): void => { 
     // Updates x or y position based on the current direction
     const isVertical = ['north', 'south'].includes(currentDirection);
     const axis = isVertical ? 'y' : 'x';
@@ -83,15 +91,17 @@ const updatePosition = (): void => {
     // Decrement or increment the current position based on the current direction
     const operator = ['west', 'south'].includes(currentDirection) ? 'decrement' : 'increment';
     const term = operator === 'increment' ? 1 : -1;
-
-    currentPosition = {
+    const newPosition = {
         ...currentPosition,
         [axis]: currentPosition[axis] + term
     };
+    
+    // Throw an error if the new position is outside the canvas 
+    if(newPosition.x < 0 || newPosition.y < 0 || newPosition.x > initialValues.amountOfSquares || newPosition.y > initialValues.amountOfSquares) {
+        throw new Error("Roberta can't go outside the room!");
+    }
 
-    // Clear the canvas and draw the robot at the new position
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-    context.drawImage(img, currentPosition.x, currentPosition.y, RobotSize.width, RobotSize.height); 
+    currentPosition = newPosition;
 };
 
 /**
