@@ -1,15 +1,16 @@
 import './style'
 import robotImg from '/robot.png'
 import { setupDialogue } from './helpers/dialogue.ts'
-import { setupRoom } from './helpers/room/room.ts'
+import { setupRoom, showPosition } from './helpers/room/room.ts'
 import { setupRobot } from './helpers/robot/robot.ts'
 import { initialValues } from './helpers/room/room.types.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-
-  <img src="${robotImg}" class="image" alt="Robot emoji" />
-  <h1>Robot Roberta</h1>
-  <button id="language" class="-secondary -small" type="button">In English</button>
+  <div class="header">
+    <img src="${robotImg}" class="image" alt="Robot emoji" />
+    <h1>Robot Roberta</h1>
+    <button id="language" class="-secondary -small" type="button">In English</button>
+  </div>
 
   <div id="backdrop" class="backdrop"></div>
   <div id="modal" class="modal">
@@ -19,7 +20,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <button></button>
     </div>
   </div>
-  
+
+  <div id="position" class="notification"></div>
   <div class="wrapper">
     <div id="house"></div>
 
@@ -46,7 +48,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
       <p class="output"></p>
 
-      <div class="notification"></div>
+      <div id="user-input" class="notification"></div>
     </div>
   </div>
 `
@@ -59,3 +61,6 @@ setupRobot(document.querySelector<HTMLCanvasElement>('#room')!, initialValues.po
 
 // Add an event listener to the button that starts the dialogue
 setupDialogue(document.querySelector<HTMLButtonElement>('#dialogue')!)
+
+// Show a notification with the inital position and direction of the robot
+showPosition('info', `Roberta är nu på position x: ${initialValues.position.x}, y: ${initialValues.position.y} och tittar åt  ${initialValues.direction}`)

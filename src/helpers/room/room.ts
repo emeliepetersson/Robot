@@ -1,3 +1,5 @@
+import { showNotification } from "../notification/notification";
+import { NotificationStatus } from "../notification/notification.types";
 import { Shapes } from "./room.types";
 
 /**
@@ -49,4 +51,18 @@ const setupRoom = (house: HTMLDivElement, squares: number, shape: Shapes): void 
     house.appendChild(room);
 }
 
-export { setupRoom };
+/**
+ * Show a notification with the current position of the robot
+ * 
+ * @param {NotificationStatus} status
+ * @param {string} message
+ * @returns {void}
+ */
+const showPosition = (status: NotificationStatus, message: string): void => {
+    showNotification(true, 'position', status, message)
+}
+
+export { 
+    setupRoom, 
+    showPosition 
+};

@@ -1,5 +1,5 @@
 import { showModal } from "../modal/modal";
-import { showNotification } from "../notification";
+import { showPosition } from "../room/room";
 import { Directions, initialValues } from "../room/room.types";
 import { Position, RobotSize } from "./robot.types";
 import robotImg from '/robot.png'
@@ -66,9 +66,9 @@ const moveRoberta = (): void => {
             else updateDirection(command);
 
             // Show a notification with the final position and direction
-            showNotification(true, false, `Roberta är nu på position x: ${currentPosition.x}, y: ${currentPosition.y} och tittar åt ${currentDirection}`);
+            showPosition('success', `Roberta är nu på position x: ${currentPosition.x}, y: ${currentPosition.y} och tittar åt ${currentDirection}`);
         } catch (err) {
-            showNotification(true, true, `Roberta kan inte gå utanför rummet! Hon stannade på x: ${currentPosition.x}, y: ${currentPosition.y} och tittar åt ${currentDirection}`);
+            showPosition('error', `Roberta kan inte gå utanför rummet! Hon stannade på x: ${currentPosition.x}, y: ${currentPosition.y} och tittar åt ${currentDirection}`);
             break;
         }
     }
@@ -97,7 +97,7 @@ const updatePosition = (): void => {
     };
     
     // Throw an error if the new position is outside the canvas 
-    if(newPosition.x < 0 || newPosition.y < 0 || newPosition.x > initialValues.amountOfSquares || newPosition.y > initialValues.amountOfSquares) {
+    if(newPosition.x < 0 || newPosition.y < 0 || newPosition.x >= initialValues.amountOfSquares || newPosition.y >= initialValues.amountOfSquares) {
         throw new Error("Roberta can't go outside the room!");
     }
 

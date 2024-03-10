@@ -1,0 +1,1 @@
+export type NotificationStatus = "error" | "success" | "info"; 

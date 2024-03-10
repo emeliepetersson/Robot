@@ -1,4 +1,4 @@
-import { showNotification } from "./notification";
+import { showNotification } from "./notification/notification";
 import { giveRobertaCommands } from "./robot/robot";
 
 /**
@@ -25,7 +25,7 @@ const setupDialogue = (button: HTMLButtonElement): void => {
     if(!shouldStartListening) {
       // Pass the output to the robot
       if(output.innerHTML.length > 0) giveRobertaCommands(output);
-      else showNotification(true, true, 'Inga kommandon är angivna!');
+      else showNotification(true, 'user-input', 'error', 'Inga kommandon är angivna!');
       
     }
   });
@@ -60,7 +60,7 @@ const handleKeyboardEvents = (event: KeyboardEvent): void => {
       output.innerHTML += event.key;
   
       // Hide the notification
-      showNotification(false);
+      showNotification(false, 'user-input');
       break;
 
     case 'Backspace':
@@ -79,7 +79,7 @@ const handleKeyboardEvents = (event: KeyboardEvent): void => {
       if(isLetter(event.key)) output.innerHTML += invalidLetter.outerHTML;
   
       // Show the notification
-      showNotification(true, true,'Ett ogiltigt värde har angivits!');
+      showNotification(true, 'user-input', 'error', 'Ett ogiltigt värde har angivits!');
       break;
    }
 }
