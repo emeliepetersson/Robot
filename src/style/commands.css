@@ -13,6 +13,7 @@
     border-radius: 0.5rem;
     margin-bottom: 2.4rem;
     width: 100%;
+    max-width: 20rem;
 }
 
 .card h2 {
@@ -52,4 +53,25 @@
 
 .output span {
     color: rgb(249, 61, 61);
+}
+
+.commands .button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+@media screen and (max-width: 950px){
+    .commands {
+        margin: 2.4rem 0;
+        flex-direction: row;
+        max-width: 100%;
+        width: 100%;
+        justify-content: space-evenly;
+    }
+
+    .commands .button-wrapper {
+        margin-left: 2.4rem;
+    }
 }

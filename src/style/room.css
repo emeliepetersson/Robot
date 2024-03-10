@@ -7,3 +7,9 @@
 #room.circle {
     border-radius: 50%;
 }
+
+@media screen and (max-width: 950px){
+    #room {
+        margin-right: 0;
+    }
+}

@@ -25,3 +25,9 @@
 .notification.info {
     background-color: rgb(121, 183, 209);
 }
+
+@media screen and (max-width: 950px){
+    #position {
+        margin: 2.4rem auto 0;
+    }
+}

@@ -42,13 +42,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         </ul>
       </div>
 
-      <button id="dialogue" type="button">Ange kommandon</button>
+      <div class="button-wrapper">
+        <button id="dialogue" type="button">Ange kommandon</button>
 
-      <p id="description" class="description"></p>
+        <p id="description" class="description"></p>
 
-      <p class="output"></p>
+        <p class="output"></p>
 
-      <div id="user-input" class="notification"></div>
+        <div id="user-input" class="notification"></div>
+      </div>
     </div>
   </div>
 `
