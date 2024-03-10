@@ -28,9 +28,6 @@ const setupRoom = (house: HTMLDivElement, squares: number, shape: Shapes): void 
     if(shape === 'square') {
         // Move the origo (0,0) to the bottom left corner
         context.translate(0, room.height);
-
-        // Flip the y-axis
-        context.scale(1, -1);
     }
 
     if(shape === 'circle') {
@@ -46,7 +43,7 @@ const setupRoom = (house: HTMLDivElement, squares: number, shape: Shapes): void 
     // TODO understand this: Scale the canvas context so that 1 unit corresponds to 100 pixels for squares and 25 pixels for circles
     // ( multiplier / 2 = 25 for circles and multiplier = 100 for squares)
     const scale = shape === 'circle' ? multiplier / 2 : multiplier;
-    context.scale(scale, scale);
+    context.scale(scale, -scale); // The negative scale is to make the y-axis point upwards
 
     house.appendChild(room);
 }

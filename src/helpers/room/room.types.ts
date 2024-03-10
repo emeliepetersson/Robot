@@ -1,9 +1,9 @@
 import { Position } from "../robot/robot.types";
 
 export const initialValues: StartingValues = {
-    shape: 'square',
-    position: { x: 1, y: 2 },
-    amountOfSquares: 5,
+    shape: 'circle',
+    position: { x: 0, y: 0 },
+    amountOfSquares: 10,
     direction: 'north' // When the program starts the robot is always facing north
 };
 
