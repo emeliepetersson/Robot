@@ -9,6 +9,7 @@ export const initialValues: StartingValues = {
 
 export type Shapes = 'circle' | 'square';
 
+// TODO: create enum instead
 export type Directions = 'north' | 'east' | 'south' | 'west';
 
 export interface StartingValues {
