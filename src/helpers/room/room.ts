@@ -1,5 +1,3 @@
-import { showNotification } from "../notification/notification";
-import { NotificationStatus } from "../notification/notification.types";
 import { Shapes } from "./room.types";
 
 /**

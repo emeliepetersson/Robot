@@ -1,3 +1,4 @@
+import { texts } from "./language/language";
 import { showNotification } from "./notification/notification";
 import { giveRobertaCommands } from "./robot/robot";
 
@@ -11,13 +12,13 @@ const setupDialogue = (button: HTMLButtonElement): void => {
   
   button.addEventListener('click', () => {
     const output = document.querySelector<HTMLParagraphElement>('.output')!;
-    const shouldStartListening = button.innerHTML === 'Ange kommandon';
-    shouldStartListening ? button.innerHTML = 'Klar' : button.innerHTML = 'Ange kommandon';
+    const shouldStartListening = button.innerHTML === texts.commandButton;
+    shouldStartListening ? button.innerHTML = texts.commandButtonDone : button.innerHTML = texts.commandButton;
     if(shouldStartListening) output.innerHTML = '';
 
     // Show the description
     const description = document.querySelector<HTMLParagraphElement>('#description')!;
-    description.innerHTML = shouldStartListening ? 'Klicka på tangenterna V, H eller G.' : '';
+    description.innerHTML = shouldStartListening ? texts.commandsInstructions : '';
 
     // Start/stop listening for user input
     listenForUserInput(shouldStartListening);
@@ -25,7 +26,7 @@ const setupDialogue = (button: HTMLButtonElement): void => {
     if(!shouldStartListening) {
       // Pass the output to the robot
       if(output.innerHTML.length > 0) giveRobertaCommands(output);
-      else showNotification(true, 'user-input', 'error', 'Inga kommandon är angivna!');
+      else showNotification(true, 'user-input', 'error', texts.commandsError);
       
     }
   });
@@ -52,24 +53,24 @@ const handleKeyboardEvents = (event: KeyboardEvent): void => {
   if(event.key !== 'Enter') event.preventDefault();
   const output = document.querySelector<HTMLParagraphElement>('.output')!;
 
-  switch (event.key) {
-    case 'v':
-    case 'h':
-    case 'g':
-      // If the key is 'v', 'h', or 'g', append it to the output and hide the notification
+  switch (event.key.toUpperCase()) {
+    case texts.rightCommand:
+    case texts.leftCommand:
+    case texts.forwardCommand:
+      // If the key is equal to the right, left or forward command append it to the output and hide the notification
       output.innerHTML += event.key;
   
       // Hide the notification
       showNotification(false, 'user-input');
       break;
 
-    case 'Backspace':
+    case 'BACKSPACE':
       // If the key is 'backspace', remove the last letter/span from the output
       if(output.lastChild?.nodeName === 'SPAN') output.removeChild(output.lastChild);
       else output.innerHTML = output.innerHTML.slice(0, -1);
       break;
 
-    case 'Enter':
+    case 'ENTER':
       break;
 
     default:
@@ -79,7 +80,7 @@ const handleKeyboardEvents = (event: KeyboardEvent): void => {
       if(isLetter(event.key)) output.innerHTML += invalidLetter.outerHTML;
   
       // Show the notification
-      showNotification(true, 'user-input', 'error', 'Ett ogiltigt värde har angivits!');
+      showNotification(true, 'user-input', 'error', texts.commandsInvalid);
       break;
    }
 }

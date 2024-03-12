@@ -1,6 +1,6 @@
 import { Lang, en, sv } from "./language.types";
 
-let currentLanguage = sv;
+let texts = sv;
 
 /**
  * Add an event listener to the language button 
@@ -15,7 +15,7 @@ const setupLanguageButton = (button: HTMLButtonElement): void => {
         let language = button.textContent as Lang ?? 'Svenska';
 
         // Update the current language and change button text
-        currentLanguage = language === 'Svenska' ? sv : en;
+        texts = language === 'Svenska' ? sv : en;
         const newButtonText: Lang = language === 'Svenska' ? 'English' : 'Svenska';
         button.textContent = newButtonText;
 
@@ -37,11 +37,11 @@ const changeCommandsTexts = (): void => {
     const commandsRight = commandsLeft.nextElementSibling!;
     const commandsForward = commandsRight.nextElementSibling!;
 
-    commandButton.textContent = currentLanguage.commandButton;
-    commandsTitle.textContent = currentLanguage.commandsTitle;
-    commandsLeft.textContent = currentLanguage.commandsLeft;
-    commandsRight.textContent = currentLanguage.commandsRight;
-    commandsForward.textContent = currentLanguage.commandsForward;
+    commandButton.textContent = texts.commandButton;
+    commandsTitle.textContent = texts.commandsTitle;
+    commandsLeft.textContent = texts.commandsLeft;
+    commandsRight.textContent = texts.commandsRight;
+    commandsForward.textContent = texts.commandsForward;
 }
 
 /**
@@ -55,12 +55,12 @@ const changePositionText = (): void => {
     const errorMessage = positionCard.querySelector<HTMLParagraphElement>('.error-message')!;
     const directionTitle = positionCard.querySelector<HTMLParagraphElement>('.direction-title')!;
 
-    positionTitle.textContent = currentLanguage.positionTitle;
-    errorMessage.textContent = currentLanguage.positionErrorMessage;
-    directionTitle.textContent = currentLanguage.positionDirection;
+    positionTitle.textContent = texts.positionTitle;
+    errorMessage.textContent = texts.positionErrorMessage;
+    directionTitle.textContent = texts.positionDirection;
 };
 
 export {
-    currentLanguage,
+    texts,
     setupLanguageButton
 };

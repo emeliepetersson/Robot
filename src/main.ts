@@ -31,7 +31,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           <p class="error-message">Roberta gick in i väggen!</p>
           <p>x: <span class="x"></span></p>
           <p>y: <span class="y"></span></p>
-          <p class="direction-title">Riktning: <span class="direction"></span></p>
+          <p><span class="direction-title">Riktning:</span> <span class="direction"></span></p>
         </div>
 
         <div class="card commands">
@@ -52,7 +52,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       </div>
 
       <div class="button-wrapper">
-        <button id="dialogue" type="button">Ange kommandon</button>
+        <button id="dialogue" type="button">Ange kommando</button>
 
         <p id="description" class="description"></p>
 

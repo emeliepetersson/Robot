@@ -1,3 +1,4 @@
+import { texts } from "../language/language";
 import { showModal } from "../modal/modal";
 import { showPosition } from "../room/room";
 import { Directions, initialValues } from "../room/room.types";
@@ -47,7 +48,7 @@ const setupRobot = (room: HTMLCanvasElement, position: Position, direction: Dire
 const giveRobertaCommands = (output: HTMLDivElement): void => {
     // Remove all spans (= invalid keys) from the output
     commands = output.innerHTML.replace(/<span>.*?<\/span>/g, '');
-    showModal('Givna kommandon:', commands, 'Kör', moveRoberta)
+    showModal(texts.givenCommands, commands, texts.go, moveRoberta)
 }
 
 /**
@@ -60,9 +61,9 @@ const moveRoberta = (): void => {
 
     for (const command of commands) {
         try {
-            // If the command is "G" (go forward) we update the position
+            // If the command is "G"/"F" (go forward) we update the position
             // Otherwise we update the direction
-            if(command.toUpperCase() === "G") updatePosition();
+            if(command.toUpperCase() === texts.forwardCommand) updatePosition();
             else updateDirection(command);
 
             // Show a notification with the final position and direction
@@ -100,7 +101,7 @@ const updatePosition = (): void => {
     
     // Throw an error if the new position is outside the canvas 
     if(!isRobotInsideRoom(newPosition)) {
-        throw new Error("Roberta can't go outside the room!");
+        throw new Error(texts.errorOutsideRoom);
     }
 
     currentPosition = newPosition;
@@ -116,12 +117,12 @@ const updateDirection = (command: string): void => {
     const directions: Directions[] = ['north', 'east', 'south', 'west'];
     const currentIndex = directions.indexOf(currentDirection);
 
-    if(command.toUpperCase() === 'H') {
+    if(command.toUpperCase() === texts.rightCommand) {
         // Get the next direction in the directions array
         const nextIndex = (currentIndex + 1) % directions.length; // (Used the modulo operator (%) to cycle through the directions array)
         currentDirection = directions[nextIndex];
 
-    } else if(command.toUpperCase() === 'V') {
+    } else if(command.toUpperCase() === texts.leftCommand) {
         // Get the previous direction in the directions array
         const previousIndex = (currentIndex - 1 + directions.length) % directions.length;
         currentDirection = directions[previousIndex];
