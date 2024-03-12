@@ -121,10 +121,16 @@
     align-items: flex-start;
     margin-top: 3.2rem;
     position: relative;
+    gap: 2.4rem;
   }
 
   .header {
     margin-bottom: 4.8rem;
+  }
+
+  .cards-wrapper {
+    display: flex;
+    gap: 1.2rem;
   }
 
   @media screen and (max-width: 950px){

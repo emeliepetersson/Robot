@@ -44,14 +44,30 @@ const setupRoom = (house: HTMLDivElement, squares: number, shape: Shapes): void 
 }
 
 /**
- * Show a notification with the current position of the robot
+ * Display the current position and direction
  * 
- * @param {NotificationStatus} status
- * @param {string} message
+ * @param {number} xPos
+ * @param {number} yPos
+ * @param {string} direction
+ * @param {boolean | undefined} hasError
  * @returns {void}
  */
-const showPosition = (status: NotificationStatus, message: string): void => {
-    showNotification(true, 'position', status, message)
+const showPosition = (xPos: number, yPos: number, direction: string, hasError?: boolean): void => {
+    const positionCard = document.querySelector<HTMLDivElement>('.position')!;
+    const x = positionCard.querySelector<HTMLSpanElement>('.x')!;
+    const y = positionCard.querySelector<HTMLSpanElement>('.y')!;
+    const dir = positionCard.querySelector<HTMLSpanElement>('.direction')!;
+
+    x.textContent = xPos.toString();
+    y.textContent = yPos.toString();
+    dir.textContent = direction;
+
+    if(hasError) positionCard.classList.add('error');
+    else positionCard.classList.remove('error');
+
+    // Show/hide the error message
+    const errorMessage = positionCard.querySelector<HTMLParagraphElement>('.error-message')!;
+    errorMessage.style.display = hasError ? 'block' : 'none';
 }
 
 export { 

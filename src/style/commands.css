@@ -3,7 +3,6 @@
     flex-direction: column;
     align-items: flex-start;
     margin-left: 2.4rem;
-    max-width: 25rem;
 }
 
 .card {
@@ -63,15 +62,7 @@
 }
 
 @media screen and (max-width: 950px){
-    .commands {
-        margin: 2.4rem 0;
-        flex-direction: row;
-        max-width: 100%;
-        width: 100%;
-        justify-content: space-evenly;
-    }
-
     .commands .button-wrapper {
-        margin-left: 2.4rem;
+        margin-bottom: 4rem;
     }
 }

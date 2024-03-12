@@ -1,0 +1,19 @@
+.position.card {
+    background-color: rgb(219, 245, 221);
+}
+
+.position.card.error {
+    background-color: rgb(252, 172, 172);
+}
+
+.position .error-message {
+    display: none;
+    font-size: 1.8rem;
+    font-style: italic;
+    margin-bottom: 1.2rem;
+}
+
+.position p {
+    text-align: left;
+    font-size: 1.6rem;
+}

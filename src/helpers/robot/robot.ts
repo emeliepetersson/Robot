@@ -66,9 +66,9 @@ const moveRoberta = (): void => {
             else updateDirection(command);
 
             // Show a notification with the final position and direction
-            showPosition('success', `Roberta är nu på position x: ${currentPosition.x}, y: ${currentPosition.y} och tittar åt ${currentDirection}`);
+            showPosition(currentPosition.x, currentPosition.y, currentDirection);
         } catch (err) {
-            showPosition('error', `Roberta kan inte gå utanför rummet! Hon stannade på x: ${currentPosition.x}, y: ${currentPosition.y} och tittar åt ${currentDirection}`);
+            showPosition(currentPosition.x, currentPosition.y, currentDirection, true);
             break;
         }
     }
