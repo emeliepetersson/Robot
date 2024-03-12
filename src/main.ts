@@ -4,12 +4,13 @@ import { setupDialogue } from './helpers/dialogue.ts'
 import { setupRoom, showPosition } from './helpers/room/room.ts'
 import { setupRobot } from './helpers/robot/robot.ts'
 import { initialValues } from './helpers/room/room.types.ts'
+import { setupLanguageButton } from './helpers/language/language.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="header">
     <img src="${robotImg}" class="image" alt="Robot emoji" />
     <h1>Robot Roberta</h1>
-    <button id="language" class="-secondary -small" type="button">In English</button>
+    <button id="language" class="-secondary -small" type="button">English</button>
   </div>
 
   <div id="backdrop" class="backdrop"></div>
@@ -21,25 +22,33 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </div>
   </div>
 
-  <div id="position" class="notification"></div>
   <div class="wrapper">
-    <div id="house"></div>
 
-    <div class="commands">
-      <div class="card">
-        <h2>Giltiga kommandon:</h2>
+    <div class="commands-wrapper">
+      <div class="cards-wrapper">
+        <div class="position card">
+          <h2>Nuvarande position:</h2>
+          <p class="error-message">Roberta gick in i väggen!</p>
+          <p>x: <span class="x"></span></p>
+          <p>y: <span class="y"></span></p>
+          <p class="direction-title">Riktning: <span class="direction"></span></p>
+        </div>
 
-        <ul>
-          <li>
-            V: Sväng vänster
-          </li>
-          <li>
-            H: Sväng höger
-          </li>
-          <li>
-            G: Gå framåt 
-          </li>
-        </ul>
+        <div class="card commands">
+          <h2>Giltiga kommandon:</h2>
+
+          <ul>
+            <li>
+              V: Sväng vänster
+            </li>
+            <li>
+              H: Sväng höger
+            </li>
+            <li>
+              G: Gå framåt 
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div class="button-wrapper">
@@ -52,6 +61,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <div id="user-input" class="notification"></div>
       </div>
     </div>
+
+    <div id="house"></div>
   </div>
 `
 
@@ -64,5 +75,8 @@ setupRobot(document.querySelector<HTMLCanvasElement>('#room')!, initialValues.po
 // Add an event listener to the button that starts the dialogue
 setupDialogue(document.querySelector<HTMLButtonElement>('#dialogue')!)
 
-// Show a notification with the inital position and direction of the robot
-showPosition('info', `Roberta är nu på position x: ${initialValues.position.x}, y: ${initialValues.position.y} och tittar åt  ${initialValues.direction}`)
+// Display the inital position and direction of the robot
+showPosition(initialValues.position.x, initialValues.position.y, initialValues.direction)
+
+// Add an event listener to the button that changes the language
+setupLanguageButton(document.querySelector<HTMLButtonElement>('#language')!)

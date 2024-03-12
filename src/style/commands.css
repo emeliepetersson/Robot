@@ -1,4 +1,4 @@
-.commands {
+.commands-wrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -11,8 +11,7 @@
     padding: 2.4rem;
     border-radius: 0.5rem;
     margin-bottom: 2.4rem;
-    width: 100%;
-    max-width: 20rem;
+    width: 20rem;
 }
 
 .card h2 {
@@ -31,7 +30,7 @@
     margin-bottom: 0.8rem;
 }
 
-.commands button {
+.commands-wrapper button {
     min-width: 19rem;
 }
 
@@ -54,7 +53,7 @@
     color: rgb(249, 61, 61);
 }
 
-.commands .button-wrapper {
+.commands-wrapper .button-wrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -62,7 +61,7 @@
 }
 
 @media screen and (max-width: 950px){
-    .commands .button-wrapper {
+    .commands-wrapper .button-wrapper {
         margin-bottom: 4rem;
     }
 }
