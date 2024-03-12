@@ -89,7 +89,9 @@ const updatePosition = (): void => {
     const axis = isVertical ? 'y' : 'x';
 
     // Decrement or increment the current position based on the current direction
-    const operator = ['west', 'south'].includes(currentDirection) ? 'decrement' : 'increment';
+    // (north and west should decrement, south and east should increment)
+    const operator = ['west', 'north'].includes(currentDirection) ? 'decrement' : 'increment';
+
     const term = operator === 'increment' ? 1 : -1;
     const newPosition = {
         ...currentPosition,
@@ -97,7 +99,7 @@ const updatePosition = (): void => {
     };
     
     // Throw an error if the new position is outside the canvas 
-    if(newPosition.x < 0 || newPosition.y < 0 || newPosition.x >= initialValues.amountOfSquares || newPosition.y >= initialValues.amountOfSquares) {
+    if(!isRobotInsideRoom(newPosition)) {
         throw new Error("Roberta can't go outside the room!");
     }
 
@@ -124,6 +126,37 @@ const updateDirection = (command: string): void => {
         const previousIndex = (currentIndex - 1 + directions.length) % directions.length;
         currentDirection = directions[previousIndex];
     }
+};
+
+/**
+ * Calculate if the robot is inside the room
+ * 
+ * @param {Position} position
+ * @returns {boolean}
+ */
+const isRobotInsideRoom = (position: Position): boolean => {
+    if(!context) return false;
+
+    // If the room is a circle
+    if(initialValues.shape === 'circle') {
+        const radius = context.canvas.width / 2;
+        const squareInPixels = radius / initialValues.amountOfSquares;
+
+        const distanceX = position.x * squareInPixels;
+        const distanceY = position.y * squareInPixels;
+
+        // Calculate the robot's distance from the origo and check if it's larger than the radius
+        // (The distance is the hypotenuse of a right-angled triangle)
+        const distanceFromOrigo = Math.hypot(distanceX, distanceY);
+        return distanceFromOrigo < radius;
+    }
+    
+    // If the room is a square
+    if(position.x < 0 || position.y < 0 || position.x >= initialValues.amountOfSquares || position.y >= initialValues.amountOfSquares) {
+        return false;
+    }
+
+    return true;
 };
 
 export { 
