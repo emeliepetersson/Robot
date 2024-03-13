@@ -38,8 +38,9 @@ const changeCommandsTexts = (): void => {
     const commandsForward = commandsRight.nextElementSibling!;
 
     // Since the command button text changes after clicking on it we need to check the current text
-    if(commandButton.textContent === texts.commandButtonDone) commandButton.textContent = texts.commandButton;
-    else commandButton.textContent = texts.commandButtonDone;
+    const commandBtnText = commandButton.textContent;
+    if(commandBtnText === sv.commandButtonDone || commandBtnText === en.commandButtonDone) commandButton.textContent = texts.commandButtonDone;
+    else commandButton.textContent = texts.commandButton;
 
     commandsTitle.textContent = texts.commandsTitle;
     commandsLeft.textContent = texts.commandsLeft;
