@@ -1,6 +1,6 @@
 import './style'
 import robotImg from '/robot.png'
-import { setupDialogue } from './helpers/dialogue.ts'
+import { setupDialogue } from './helpers/dialogue/dialogue.ts'
 import { setupRoom, showPosition } from './helpers/room/room.ts'
 import { setupRobot } from './helpers/robot/robot.ts'
 import { initialValues } from './helpers/room/room.types.ts'

@@ -1,6 +1,6 @@
-import { texts } from "./language/language";
-import { showNotification } from "./notification/notification";
-import { giveRobertaCommands } from "./robot/robot";
+import { texts } from "../language/language";
+import { showNotification } from "../notification/notification";
+import { giveRobertaCommands } from "../robot/robot";
 
 /**
  * Add an event listener to the button that starts the dialogue.
@@ -13,6 +13,8 @@ const setupDialogue = (button: HTMLButtonElement): void => {
   button.addEventListener('click', () => {
     const output = document.querySelector<HTMLParagraphElement>('.output')!;
     const shouldStartListening = button.innerHTML === texts.commandButton;
+
+    // Change the button text
     shouldStartListening ? button.innerHTML = texts.commandButtonDone : button.innerHTML = texts.commandButton;
     if(shouldStartListening) output.innerHTML = '';
 
@@ -98,5 +100,5 @@ const isLetter = (key: string): boolean => {
 }
 
 export { 
-  setupDialogue 
+  setupDialogue
 };
