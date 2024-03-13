@@ -1,4 +1,4 @@
-import { mockDocumentBody } from "../test.helper";
+import { mockDocumentBody } from "../../../mocks/domMocks";
 import { showModal } from "./modal";
 
 mockDocumentBody();

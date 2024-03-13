@@ -8,5 +8,9 @@ module.exports = {
        '^.+\\.(ts|tsx)$': 'ts-jest',
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'json', 'node'],
-   };
+    moduleNameMapper: {
+      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/mocks/fileMock.ts"
+    },
+    setupFiles: ["jest-canvas-mock"]
+};
    
