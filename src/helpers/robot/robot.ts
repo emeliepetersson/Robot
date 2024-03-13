@@ -83,7 +83,9 @@ const moveRobot = (): void => {
     }
 
     // Clear the canvas and draw the robot at the new position
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    // (Fill the canvas with the background color)
+    context.fillStyle = "white";
+    context.fillRect(-context.canvas.width, -context.canvas.height, context.canvas.width * 2, context.canvas.height * 2);
     context.drawImage(img, currentPosition.x, currentPosition.y, RobotSize.width, RobotSize.height); 
 }
 
