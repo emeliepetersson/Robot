@@ -35,7 +35,7 @@ const setupDialogue = (button: HTMLButtonElement): void => {
 }
 
 /**
- * Add an event listener to the DOM to listen for keyboard input.
+ * Add an event listener to the document to listen for keyboard input.
  * 
  * @param {boolean} shouldStartListening
  * @returns {void}
@@ -61,8 +61,6 @@ const handleKeyboardEvents = (event: KeyboardEvent): void => {
     case texts.forwardCommand:
       // If the key is equal to the right, left or forward command append it to the input and hide the notification
       input.innerHTML += event.key;
-  
-      // Hide the notification
       showNotification(false, 'user-input');
       break;
 
@@ -73,15 +71,18 @@ const handleKeyboardEvents = (event: KeyboardEvent): void => {
       break;
 
     case 'ENTER':
+      // We only want the enter key to trigger the button click (if the button is focused)
       break;
 
     default:
-      // For any other key, wrap the invalid letter in a span to highlight it as invalid
-      const invalidLetter = document.createElement('span');
-      invalidLetter.innerHTML = event.key;
-      if(isLetter(event.key)) input.innerHTML += invalidLetter.outerHTML;
+      // For any other key, wrap the invalid letter in a span to highlight it
+      if(isLetter(event.key)) {
+        const invalidLetter = document.createElement('span');
+        invalidLetter.innerHTML = event.key;
+        input.innerHTML += invalidLetter.outerHTML;
+      }
   
-      // Show the notification
+      // Show an error notification
       showNotification(true, 'user-input', 'error', texts.commandsInvalid);
       break;
    }

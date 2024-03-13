@@ -24,7 +24,7 @@ describe("Dialogue", () => {
         setupDialogue(button);
     })
 
-    beforeEach(()=> {
+    afterEach(()=> {
         // This resets the command button text to the default value
         button.innerHTML = sv.commandButton;
     });
@@ -46,7 +46,6 @@ describe("Dialogue", () => {
     it('should listen for keyboard input when the dialogue button is clicked', async() => {
         button.click();
 
-        // Simulates a press of the 'v' key
         simulateKeyboardEvent('v');
 
         // Check if the input is updated
@@ -57,7 +56,6 @@ describe("Dialogue", () => {
         button.click();
         button.click();
 
-        // Simulates a press of the 'h' key
         simulateKeyboardEvent('h');
 
         // Check if the input is updated (it should still be empty)
@@ -70,7 +68,7 @@ describe("Dialogue", () => {
         // Simulates a press of the 'x' key (which is not a valid command)
         simulateKeyboardEvent('x');
 
-        // Check if the input is updated
+        // Check if the 'x' is wrapped in a span
         expect(input.innerHTML).toBe('<span>x</span>');
     });
 
@@ -78,7 +76,6 @@ describe("Dialogue", () => {
         button.click();
         button.click();
 
-        // Check if a notification is displayed
         const notification = document.querySelector<HTMLDivElement>('#user-input')!;
         expect(notification.innerHTML).toBe(sv.commandsError);
     });
@@ -86,27 +83,23 @@ describe("Dialogue", () => {
     it('should remove command when clicking on the backspace key', () => {
         button.click();
 
-        // Simulates a press of the 'v' key
         simulateKeyboardEvent('v');
         simulateKeyboardEvent('a');
-
-        // Simulates a press of the 'backspace' key
         simulateKeyboardEvent('Backspace');
 
-        // Check if the input is updated
+        // The input element should only contain the 'v' command
         expect(input.innerHTML).toBe('v');
     });
 
     it('should pass the given commands to the robot', () => {
         button.click();
 
-        // Simulates a press of the 'v' key
         simulateKeyboardEvent('v');
         simulateKeyboardEvent('h');
         simulateKeyboardEvent('g');
         simulateKeyboardEvent('a');
 
-        // a should be highlighted as an invalid command
+        // 'a' should be highlighted as an invalid command
         expect(input.innerHTML).toBe('vhg<span>a</span>');
 
         button.click();
