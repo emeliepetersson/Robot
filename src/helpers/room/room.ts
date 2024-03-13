@@ -1,3 +1,4 @@
+import { texts } from "../language/language";
 import { showNotification } from "../notification/notification";
 import { Directions, Shapes } from "./room.types";
 
@@ -21,7 +22,7 @@ const setupRoom = (house: HTMLDivElement, squares: number, shape: Shapes): void 
     
     const context = room.getContext('2d');  
     if(!context) { 
-        showNotification(true, 'global-notification', 'error', 'Ett fel uppstod när rummet skulle renderas, testa att byta webbläsare...');
+        showNotification(true, 'global-notification', 'error', texts.errorSetupRoom);
         return;
     }
 

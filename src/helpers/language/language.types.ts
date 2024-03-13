@@ -23,7 +23,9 @@ const sv = {
     leftCommand: 'V',
     rightCommand: 'H',
 
-    errorOutsideRoom: "Roberta kan inte gå utanför rummet!"
+    errorOutsideRoom: "Roberta kan inte gå utanför rummet!",
+    errorSetupRobot: "Ett fel uppstod när roboten skulle renderas!",
+    errorSetupRoom: "Ett fel uppstod när rummet skulle renderas, testa att byta webbläsare..."
 }
 
 const en = {
@@ -49,7 +51,9 @@ const en = {
     leftCommand: 'L',
     rightCommand: 'R',
 
-    errorOutsideRoom: "Roberta can't go outside the room!"
+    errorOutsideRoom: "Roberta can't go outside the room!",
+    errorSetupRobot: "An error occurred when the robot was supposed to be rendered!",
+    errorSetupRoom: "An error occurred when the room was supposed to be rendered, try changing browser..."
 }
 
 export { sv, en }

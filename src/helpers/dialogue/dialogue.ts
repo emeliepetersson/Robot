@@ -1,6 +1,6 @@
 import { texts } from "../language/language";
 import { showNotification } from "../notification/notification";
-import { giveRobertaCommands } from "../robot/robot";
+import { giveRobotCommands } from "../robot/robot";
 
 /**
  * Add an event listener to the button that starts the dialogue 
@@ -28,7 +28,7 @@ const setupDialogue = (button: HTMLButtonElement): void => {
 
     // When the user clicks on the done-button we pass the input to the robot
     if(!shouldStartListening) {
-      if(input.innerHTML.length > 0) giveRobertaCommands(input);
+      if(input.innerHTML.length > 0) giveRobotCommands(input);
       else showNotification(true, 'user-input', 'error', texts.commandsError);
     }
   });

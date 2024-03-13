@@ -1,6 +1,6 @@
 import { Directions, Shapes } from "../room/room.types";
 import { mockDocumentBody } from "../../../mocks/domMocks";
-import { giveRobertaCommands, setupRobot } from "./robot";
+import { giveRobotCommands, setupRobot } from "./robot";
 import { Position, RobotSize } from "./robot.types";
 import robotImg from '/robot.png'
 import { setupRoom } from "../room/room";
@@ -70,7 +70,7 @@ describe('Robot', () => {
         const input = document.querySelector<HTMLParagraphElement>('.input')!;
         input.innerHTML = 'VGH';
 
-        giveRobertaCommands(input);
+        giveRobotCommands(input);
 
         // Get the confirmation button via the modal
         const modal = document.getElementById('modal');
@@ -90,7 +90,7 @@ describe('Robot', () => {
     //     const input = document.querySelector<HTMLParagraphElement>('.input')!;
     //     input.innerHTML = 'GGGGGGGGGG';
 
-    //     giveRobertaCommands(input);
+    //     giveRobotCommands(input);
 
     //     // Get the confirmation button via the modal
     //     const modal = document.getElementById('modal');

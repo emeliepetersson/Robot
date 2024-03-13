@@ -1,5 +1,6 @@
 import { texts } from "../language/language";
 import { showModal } from "../modal/modal";
+import { showNotification } from "../notification/notification";
 import { showPosition } from "../room/room";
 import { Directions, Shapes, initialValues } from "../room/room.types";
 import { Position, RobotSize } from "./robot.types";
@@ -20,7 +21,7 @@ let currentDirection: Directions;
  * @returns {void}
  */
 const setupRobot = (room: HTMLCanvasElement, position: Position, direction: Directions): void => {
-    context = room!.getContext("2d");
+    context = room.getContext("2d");
     img = new Image();
     img.src = robotImg;
     img.className = "robot";
@@ -34,7 +35,10 @@ const setupRobot = (room: HTMLCanvasElement, position: Position, direction: Dire
 
     // Canvas needs a preloaded image in order to draw/display it in itself
     img.onload = () => {    
-        if(!context) return;
+        if(!context) {
+            showNotification(true, 'global-notification', 'error', texts.errorSetupRobot);
+            return;
+        }
         context.drawImage(img, position.x, position.y, RobotSize.width, RobotSize.height); 
     };
 };
@@ -45,10 +49,10 @@ const setupRobot = (room: HTMLCanvasElement, position: Position, direction: Dire
  * @param {HTMLDivElement} input 
  * @returns {void}
  */
-const giveRobertaCommands = (input: HTMLDivElement): void => {
+const giveRobotCommands = (input: HTMLDivElement): void => {
     // Remove all spans (= invalid keys) from the input
     commands = input.innerHTML.replace(/<span>.*?<\/span>/g, '');
-    showModal(texts.givenCommands, commands, texts.go, moveRoberta)
+    showModal(texts.givenCommands, commands, texts.go, moveRobot)
 }
 
 /**
@@ -56,7 +60,7 @@ const giveRobertaCommands = (input: HTMLDivElement): void => {
  * 
  * @returns {void}
  */
-const moveRoberta = (): void => {
+const moveRobot = (): void => {
     if(!context) return;
 
     for (const command of commands) {
@@ -162,5 +166,5 @@ const isRobotInsideRoom = (position: Position): boolean => {
 
 export { 
     setupRobot, 
-    giveRobertaCommands 
+    giveRobotCommands
 };
