@@ -1,5 +1,6 @@
 import { mockDocumentBody } from "../../../mocks/domMocks";
 import { setupRoom, showPosition } from "./room";
+import { Directions, Shapes } from "./room.types";
 
 mockDocumentBody();
 
@@ -12,7 +13,7 @@ describe("Room", () => {
     });
 
     it("should render a square canvas with the given sixe", () => {
-        setupRoom(document.querySelector<HTMLDivElement>('#house')!, 5, "square");
+        setupRoom(document.querySelector<HTMLDivElement>('#house')!, 5, Shapes.Square);
         const multiplier = 100;
 
         const room = document.getElementById('room') as HTMLCanvasElement;
@@ -26,7 +27,7 @@ describe("Room", () => {
     });
 
     it('should render a circular canvas', () => {
-        setupRoom(document.querySelector<HTMLDivElement>('#house')!, 10, "circle");
+        setupRoom(document.querySelector<HTMLDivElement>('#house')!, 10, Shapes.Circle);
         const multiplier = 50;
 
         const room = document.getElementById('room') as HTMLCanvasElement;
@@ -40,7 +41,7 @@ describe("Room", () => {
     });
 
     it('should display the current position and direction', () => {
-        showPosition(1, 2, 'north');
+        showPosition(1, 2, Directions.North);
         const positionCard = document.querySelector<HTMLDivElement>('.position')!;
         const x = positionCard.querySelector<HTMLSpanElement>('.x')!;
         const y = positionCard.querySelector<HTMLSpanElement>('.y')!;
@@ -48,11 +49,11 @@ describe("Room", () => {
 
         expect(x.textContent).toBe('1');
         expect(y.textContent).toBe('2');
-        expect(direction.textContent).toBe('north');
+        expect(direction.textContent).toBe(Directions.North);
     });
 
     it('should display the current position and direction with an error message', () => {
-        showPosition(3, -4, 'south', true);
+        showPosition(3, -4, Directions.South, true);
         const positionCard = document.querySelector<HTMLDivElement>('.position')!;
         const errorMessage = positionCard.querySelector<HTMLParagraphElement>('.error-message')!;
 

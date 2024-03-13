@@ -1,7 +1,7 @@
 import { texts } from "../language/language";
 import { showModal } from "../modal/modal";
 import { showPosition } from "../room/room";
-import { Directions, initialValues } from "../room/room.types";
+import { Directions, Shapes, initialValues } from "../room/room.types";
 import { Position, RobotSize } from "./robot.types";
 import robotImg from '/robot.png'
 
@@ -86,12 +86,12 @@ const moveRoberta = (): void => {
  */
 const updatePosition = (): void => { 
     // Updates x or y position based on the current direction
-    const isVertical = ['north', 'south'].includes(currentDirection);
+    const isVertical = [Directions.North, Directions.South].includes(currentDirection);
     const axis = isVertical ? 'y' : 'x';
 
     // Decrement or increment the current position based on the current direction
     // (north and west should decrement, south and east should increment)
-    const operator = ['west', 'north'].includes(currentDirection) ? 'decrement' : 'increment';
+    const operator = [Directions.West, Directions.North].includes(currentDirection) ? 'decrement' : 'increment';
 
     const term = operator === 'increment' ? 1 : -1;
     const newPosition = {
@@ -114,7 +114,7 @@ const updatePosition = (): void => {
  * @returns {void}
  */
 const updateDirection = (command: string): void => {
-    const directions: Directions[] = ['north', 'east', 'south', 'west'];
+    const directions: Directions[] = [Directions.North, Directions.East, Directions.South, Directions.West];
     const currentIndex = directions.indexOf(currentDirection);
 
     if(command.toUpperCase() === texts.rightCommand) {
@@ -139,7 +139,7 @@ const isRobotInsideRoom = (position: Position): boolean => {
     if(!context) return false;
 
     // If the room is a circle
-    if(initialValues.shape === 'circle') {
+    if(initialValues.shape === Shapes.Circle) {
         const radius = context.canvas.width / 2;
         const squareInPixels = radius / initialValues.amountOfSquares;
 

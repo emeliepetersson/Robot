@@ -1,16 +1,23 @@
 import { Position } from "../robot/robot.types";
 
+export enum Shapes {
+    Circle = 'circle',
+    Square = 'square'
+}
+
+export enum Directions {
+    North = 'north',
+    East = 'east',
+    South = 'south',
+    West = 'west'
+}
+
 export const initialValues: StartingValues = {
-    shape: 'circle',
+    shape: Shapes.Circle,
     position: { x: 0, y: 0 },
     amountOfSquares: 10,
-    direction: 'north' // When the program starts the robot is always facing north
+    direction: Directions.North // When the program starts the robot is always facing north
 };
-
-export type Shapes = 'circle' | 'square';
-
-// TODO: create enum instead
-export type Directions = 'north' | 'east' | 'south' | 'west';
 
 export interface StartingValues {
     shape: Shapes;

@@ -8,6 +8,7 @@ import { setupLanguageButton } from './helpers/language/language.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="header">
+    <div id="global-notification" class="notification"></div>
     <img src="${robotImg}" class="image" alt="Robot emoji" />
     <h1>Robot Roberta</h1>
     <button id="language" class="-secondary -small" type="button">English</button>

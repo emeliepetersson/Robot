@@ -1,4 +1,4 @@
-import { Directions } from "../room/room.types";
+import { Directions, Shapes } from "../room/room.types";
 import { mockDocumentBody } from "../../../mocks/domMocks";
 import { giveRobertaCommands, setupRobot } from "./robot";
 import { Position, RobotSize } from "./robot.types";
@@ -16,7 +16,7 @@ let img: HTMLImageElement;
 describe('Robot', () => {
     beforeEach(() => {
         // Setup the room (canvas)
-        setupRoom(document.querySelector<HTMLDivElement>('#house')!, 6, 'circle')
+        setupRoom(document.querySelector<HTMLDivElement>('#house')!, 6, Shapes.Circle)
 
         // Get reference to the canvas element
         room = document.getElementById('room') as HTMLCanvasElement;
@@ -31,7 +31,7 @@ describe('Robot', () => {
 
         // Mock position and direction
         position = { x: 0, y: 0 };
-        direction = 'north';
+        direction = Directions.North;
         
         // Mock the drawImage method
         jest.spyOn(CanvasRenderingContext2D.prototype, 'drawImage').mockImplementation(() => {});

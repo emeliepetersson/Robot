@@ -25,3 +25,7 @@
 .notification.info {
     background-color: rgb(121, 183, 209);
 }
+
+#global-notification {
+    margin-bottom: 2.4rem;
+}
