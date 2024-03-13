@@ -3,8 +3,7 @@ import { Lang, en, sv } from "./language.types";
 let texts = sv;
 
 /**
- * Add an event listener to the language button 
- * in order to change the language
+ * Add an event listener to the language button in order to change the language
  * 
  * @param {HTMLButtonElement} button 
  * @returns {void}
@@ -13,10 +12,11 @@ const setupLanguageButton = (button: HTMLButtonElement): void => {
     
     button.onclick = () => {
         let language = button.textContent as Lang ?? 'Svenska';
+        const changeToSwedish = language === 'Svenska';
 
         // Update the current language and change button text
-        texts = language === 'Svenska' ? sv : en;
-        const newButtonText: Lang = language === 'Svenska' ? 'English' : 'Svenska';
+        texts = changeToSwedish ? sv : en;
+        const newButtonText: Lang = changeToSwedish ? 'English' : 'Svenska';
         button.textContent = newButtonText;
 
         changeCommandsTexts();
@@ -37,7 +37,10 @@ const changeCommandsTexts = (): void => {
     const commandsRight = commandsLeft.nextElementSibling!;
     const commandsForward = commandsRight.nextElementSibling!;
 
-    commandButton.textContent = texts.commandButton;
+    // Since the command button text changes after clicking on it we need to check the current text
+    if(commandButton.textContent === texts.commandButtonDone) commandButton.textContent = texts.commandButton;
+    else commandButton.textContent = texts.commandButtonDone;
+
     commandsTitle.textContent = texts.commandsTitle;
     commandsLeft.textContent = texts.commandsLeft;
     commandsRight.textContent = texts.commandsRight;
