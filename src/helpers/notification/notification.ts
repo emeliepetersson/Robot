@@ -5,8 +5,8 @@ import { NotificationStatus } from "./notification.types";
  * 
  * @param {boolean} isShowing
  * @param {string} notificationID
- * @param {NotificationStatus} status 
- * @param {string} message 
+ * @param {NotificationStatus | undefined} status 
+ * @param {string | undefined} message 
  * @returns {void}
  */
 const showNotification = (isShowing: boolean, notificationID: string, status?: NotificationStatus, message?: string): void => {
