@@ -67,16 +67,16 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   </div>
 `
 
-// Render a room with the given shape and number of squares
+// Render a room with the initial shape and number of squares
 setupRoom(document.querySelector<HTMLDivElement>('#house')!, initialValues.amountOfSquares, initialValues.shape)
 
-// Place the robot at a given position in the room
+// Place the robot at the initial position in the room
 setupRobot(document.querySelector<HTMLCanvasElement>('#room')!, initialValues.position, initialValues.direction)
 
 // Add an event listener to the button that starts the dialogue
 setupDialogue(document.querySelector<HTMLButtonElement>('#dialogue')!)
 
-// Display the inital position and direction of the robot
+// Display the initial position and direction of the robot
 showPosition(initialValues.position.x, initialValues.position.y, initialValues.direction)
 
 // Add an event listener to the button that changes the language
