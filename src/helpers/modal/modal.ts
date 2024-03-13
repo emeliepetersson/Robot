@@ -10,23 +10,22 @@ import { ModalButtonCb } from "./modal.types";
  * @returns {void}
  */
 const showModal = (title: string, message: string, buttonText: string, buttonCallback: ModalButtonCb): void => {
-    const backdrop = document.getElementById('backdrop');
-    const modal = document.getElementById('modal');
-    const titleElement = modal!.querySelector('h2');
-    const messageElement = modal!.querySelector('p');
-    const button = modal!.querySelector('button');
+    const backdrop = document.getElementById('backdrop')!;
+    const modal = document.getElementById('modal')!;
+    const titleElement = modal.querySelector('h2')!;
+    const messageElement = modal.querySelector('p')!;
+    const button = modal.querySelector('button')!;
 
-    titleElement!.textContent = title;
-    messageElement!.textContent = message;
-    button!.textContent = buttonText;
-    button!.onclick = () => {
+    titleElement.textContent = title;
+    messageElement.textContent = message;
+    button.textContent = buttonText;
+    button.onclick = () => {
         buttonCallback();
         closeModal();
     };
-
     
-    backdrop!.style.display = 'block';
-    modal!.style.display = 'block';
+    backdrop.style.display = 'block';
+    modal.style.display = 'block';
 }
 
 /**
@@ -35,11 +34,11 @@ const showModal = (title: string, message: string, buttonText: string, buttonCal
  * @returns {void}
  */
 const closeModal = (): void => {
-    const backdrop = document.getElementById('backdrop');
-    const modal = document.getElementById('modal');
+    const backdrop = document.getElementById('backdrop')!;
+    const modal = document.getElementById('modal')!;
 
-    backdrop!.style.display = 'none';
-    modal!.style.display = 'none';
+    backdrop.style.display = 'none';
+    modal.style.display = 'none';
 }
 
 export { showModal };
