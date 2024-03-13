@@ -66,11 +66,11 @@ describe('Robot', () => {
         setupRobot(room, position, direction);
         context = room.getContext("2d");
 
-        // Add commands to the output
-        const output = document.querySelector<HTMLParagraphElement>('.output')!;
-        output.innerHTML = 'VGH';
+        // Add commands to the input
+        const input = document.querySelector<HTMLParagraphElement>('.input')!;
+        input.innerHTML = 'VGH';
 
-        giveRobertaCommands(output);
+        giveRobertaCommands(input);
 
         // Get the confirmation button via the modal
         const modal = document.getElementById('modal');
@@ -86,11 +86,11 @@ describe('Robot', () => {
     //     setupRobot(room, position, direction);
     //     context = room.getContext("2d");
 
-    //     // Add commands to the output
-    //     const output = document.querySelector<HTMLParagraphElement>('.output')!;
-    //     output.innerHTML = 'GGGGGGGGGG';
+    //     // Add commands to the input
+    //     const input = document.querySelector<HTMLParagraphElement>('.input')!;
+    //     input.innerHTML = 'GGGGGGGGGG';
 
-    //     giveRobertaCommands(output);
+    //     giveRobertaCommands(input);
 
     //     // Get the confirmation button via the modal
     //     const modal = document.getElementById('modal');

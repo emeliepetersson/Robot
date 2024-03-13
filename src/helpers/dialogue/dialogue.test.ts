@@ -4,7 +4,7 @@ import { setupDialogue } from "./dialogue";
 
 mockDocumentBody();
 let button: HTMLButtonElement;
-let output: HTMLParagraphElement;
+let input: HTMLParagraphElement;
 
 /**
  * Simulate a keyboard event
@@ -20,7 +20,7 @@ const simulateKeyboardEvent = (key: string): void => {
 describe("Dialogue", () => {
     beforeAll(() => {
         button = document.querySelector<HTMLButtonElement>('#dialogue')!;
-        output = document.querySelector<HTMLParagraphElement>('.output')!;
+        input = document.querySelector<HTMLParagraphElement>('.input')!;
         setupDialogue(button);
     })
 
@@ -49,8 +49,8 @@ describe("Dialogue", () => {
         // Simulates a press of the 'v' key
         simulateKeyboardEvent('v');
 
-        // Check if the output is updated
-        expect(output.innerHTML).toBe('v');
+        // Check if the input is updated
+        expect(input.innerHTML).toBe('v');
     });
 
     it('should stop listening for keyboard input when the dialogue button is clicked again', () => {
@@ -60,8 +60,8 @@ describe("Dialogue", () => {
         // Simulates a press of the 'h' key
         simulateKeyboardEvent('h');
 
-        // Check if the output is updated (it should still be empty)
-        expect(output.innerHTML).toBe('');
+        // Check if the input is updated (it should still be empty)
+        expect(input.innerHTML).toBe('');
     });
 
     it('should highlight invalid commands', () => {
@@ -70,8 +70,8 @@ describe("Dialogue", () => {
         // Simulates a press of the 'x' key (which is not a valid command)
         simulateKeyboardEvent('x');
 
-        // Check if the output is updated
-        expect(output.innerHTML).toBe('<span>x</span>');
+        // Check if the input is updated
+        expect(input.innerHTML).toBe('<span>x</span>');
     });
 
     it('should show a notification if no command are given', () => {
@@ -93,8 +93,8 @@ describe("Dialogue", () => {
         // Simulates a press of the 'backspace' key
         simulateKeyboardEvent('Backspace');
 
-        // Check if the output is updated
-        expect(output.innerHTML).toBe('v');
+        // Check if the input is updated
+        expect(input.innerHTML).toBe('v');
     });
 
     it('should pass the given commands to the robot', () => {
@@ -107,7 +107,7 @@ describe("Dialogue", () => {
         simulateKeyboardEvent('a');
 
         // a should be highlighted as an invalid command
-        expect(output.innerHTML).toBe('vhg<span>a</span>');
+        expect(input.innerHTML).toBe('vhg<span>a</span>');
 
         button.click();
 

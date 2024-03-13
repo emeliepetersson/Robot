@@ -42,12 +42,12 @@ const setupRobot = (room: HTMLCanvasElement, position: Position, direction: Dire
 /**
  * Show a modal with the given commands and a button to move the robot
  * 
- * @param {HTMLDivElement} output 
+ * @param {HTMLDivElement} input 
  * @returns {void}
  */
-const giveRobertaCommands = (output: HTMLDivElement): void => {
-    // Remove all spans (= invalid keys) from the output
-    commands = output.innerHTML.replace(/<span>.*?<\/span>/g, '');
+const giveRobertaCommands = (input: HTMLDivElement): void => {
+    // Remove all spans (= invalid keys) from the input
+    commands = input.innerHTML.replace(/<span>.*?<\/span>/g, '');
     showModal(texts.givenCommands, commands, texts.go, moveRoberta)
 }
 

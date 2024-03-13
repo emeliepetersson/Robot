@@ -56,7 +56,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
         <p id="description" class="description"></p>
 
-        <p class="output"></p>
+        <p class="input"></p>
 
         <div id="user-input" class="notification"></div>
       </div>

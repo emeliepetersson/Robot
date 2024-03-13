@@ -3,7 +3,8 @@ import { showNotification } from "../notification/notification";
 import { giveRobertaCommands } from "../robot/robot";
 
 /**
- * Add an event listener to the button that starts the dialogue.
+ * Add an event listener to the button that starts the dialogue 
+ * between the user and the robot.
  * 
  * @param {HTMLButtonElement} button 
  * @returns {void}
@@ -11,12 +12,12 @@ import { giveRobertaCommands } from "../robot/robot";
 const setupDialogue = (button: HTMLButtonElement): void => {
   
   button.addEventListener('click', () => {
-    const output = document.querySelector<HTMLParagraphElement>('.output')!;
+    const input = document.querySelector<HTMLParagraphElement>('.input')!;
     const shouldStartListening = button.innerHTML === texts.commandButton;
 
     // Change the button text
-    shouldStartListening ? button.innerHTML = texts.commandButtonDone : button.innerHTML = texts.commandButton;
-    if(shouldStartListening) output.innerHTML = '';
+    button.innerHTML = shouldStartListening ? texts.commandButtonDone : texts.commandButton;
+    if(shouldStartListening) input.innerHTML = '';
 
     // Show the description
     const description = document.querySelector<HTMLParagraphElement>('#description')!;
@@ -25,11 +26,10 @@ const setupDialogue = (button: HTMLButtonElement): void => {
     // Start/stop listening for user input
     listenForUserInput(shouldStartListening);
 
+    // When the user clicks on the done-button we pass the input to the robot
     if(!shouldStartListening) {
-      // Pass the output to the robot
-      if(output.innerHTML.length > 0) giveRobertaCommands(output);
+      if(input.innerHTML.length > 0) giveRobertaCommands(input);
       else showNotification(true, 'user-input', 'error', texts.commandsError);
-      
     }
   });
 }
@@ -53,23 +53,23 @@ const listenForUserInput = (shouldStartListening: boolean): void => {
  */
 const handleKeyboardEvents = (event: KeyboardEvent): void => {
   if(event.key !== 'Enter') event.preventDefault();
-  const output = document.querySelector<HTMLParagraphElement>('.output')!;
+  const input = document.querySelector<HTMLParagraphElement>('.input')!;
 
   switch (event.key.toUpperCase()) {
     case texts.rightCommand:
     case texts.leftCommand:
     case texts.forwardCommand:
-      // If the key is equal to the right, left or forward command append it to the output and hide the notification
-      output.innerHTML += event.key;
+      // If the key is equal to the right, left or forward command append it to the input and hide the notification
+      input.innerHTML += event.key;
   
       // Hide the notification
       showNotification(false, 'user-input');
       break;
 
     case 'BACKSPACE':
-      // If the key is 'backspace', remove the last letter/span from the output
-      if(output.lastChild?.nodeName === 'SPAN') output.removeChild(output.lastChild);
-      else output.innerHTML = output.innerHTML.slice(0, -1);
+      // If the key is 'backspace', remove the last letter/span from the input
+      if(input.lastChild?.nodeName === 'SPAN') input.removeChild(input.lastChild);
+      else input.innerHTML = input.innerHTML.slice(0, -1);
       break;
 
     case 'ENTER':
@@ -79,7 +79,7 @@ const handleKeyboardEvents = (event: KeyboardEvent): void => {
       // For any other key, wrap the invalid letter in a span to highlight it as invalid
       const invalidLetter = document.createElement('span');
       invalidLetter.innerHTML = event.key;
-      if(isLetter(event.key)) output.innerHTML += invalidLetter.outerHTML;
+      if(isLetter(event.key)) input.innerHTML += invalidLetter.outerHTML;
   
       // Show the notification
       showNotification(true, 'user-input', 'error', texts.commandsInvalid);
