@@ -44,7 +44,7 @@ const setupRobot = (room: HTMLCanvasElement, position: Position, direction: Dire
 };
 
 /**
- * Show a modal with the given commands and a button to move the robot
+ * Show a modal with the given commands and a button start to moving the robot
  * 
  * @param {HTMLDivElement} input 
  * @returns {void}
@@ -61,7 +61,10 @@ const giveRobotCommands = (input: HTMLDivElement): void => {
  * @returns {void}
  */
 const moveRobot = (): void => {
-    if(!context) return;
+    if(!context) {
+        showNotification(true, 'global-notification', 'error', texts.errorMoveRobot);
+        return;
+    }
 
     for (const command of commands) {
         try {
@@ -73,6 +76,7 @@ const moveRobot = (): void => {
             // Show a notification with the final position and direction
             showPosition(currentPosition.x, currentPosition.y, currentDirection);
         } catch (err) {
+            // If there was an error moving the robot we show the final position and direction with an error message
             showPosition(currentPosition.x, currentPosition.y, currentDirection, true);
             break;
         }
@@ -123,7 +127,7 @@ const updateDirection = (command: string): void => {
 
     if(command.toUpperCase() === texts.rightCommand) {
         // Get the next direction in the directions array
-        const nextIndex = (currentIndex + 1) % directions.length; // (Used the modulo operator (%) to cycle through the directions array)
+        const nextIndex = (currentIndex + 1) % directions.length; // (Use the modulo operator (%) to cycle through the directions array)
         currentDirection = directions[nextIndex];
 
     } else if(command.toUpperCase() === texts.leftCommand) {
@@ -140,7 +144,10 @@ const updateDirection = (command: string): void => {
  * @returns {boolean}
  */
 const isRobotInsideRoom = (position: Position): boolean => {
-    if(!context) return false;
+    if(!context) {
+        showNotification(true, 'global-notification', 'error', texts.errorMoveRobot);
+        return false;
+    }
 
     // If the room is a circle
     if(initialValues.shape === Shapes.Circle) {
