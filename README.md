@@ -2,20 +2,20 @@
 
 ## Set up the project
 
-Install dependencies:
+- Install dependencies:
 ```sh
 $ yarn
 ```
 
-Start the localhost:
+- Start the localhost:
 ```sh
 $ yarn run dev
 ```
 
-Set up the initial values in ``src/helpers/room/room.types.ts``
-Change language by pressing the button below the heading.
+- Set up the initial values in ``src/helpers/room/room.types.ts``
+- Change language by pressing the button below the heading.
 
-Run tests:
+- Run tests:
 ```sh
 $ yarn run test
 ```
