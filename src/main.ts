@@ -71,7 +71,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 setupRoom(document.querySelector<HTMLDivElement>('#house')!, initialValues.amountOfSquares, initialValues.shape)
 
 // Place the robot at the initial position in the room
-setupRobot(document.querySelector<HTMLCanvasElement>('#room')!, initialValues.position, initialValues.direction)
+setupRobot(document.querySelector<HTMLCanvasElement>('#room')!, initialValues)
 
 // Add an event listener to the button that starts the dialogue
 setupDialogue(document.querySelector<HTMLButtonElement>('#dialogue')!)

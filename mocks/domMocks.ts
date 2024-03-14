@@ -7,6 +7,7 @@
 const mockDocumentBody = (): void => {
     document.body.innerHTML = `
       <div class="header">
+        <div id="global-notification" class="notification"></div>
         <img src="" class="image" alt="Robot emoji" />
         <h1>Robot Roberta</h1>
         <button id="language" class="-secondary -small" type="button">English</button>

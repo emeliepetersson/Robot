@@ -13,9 +13,9 @@ export enum Directions {
 }
 
 export const initialValues: StartingValues = {
-    shape: Shapes.Circle,
-    position: { x: 0, y: 0 },
-    amountOfSquares: 10,
+    shape: Shapes.Square,
+    position: { x: 1, y: 2 },
+    amountOfSquares: 5,
     direction: Directions.North // When the program starts the robot is always facing north
 };
 

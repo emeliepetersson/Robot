@@ -2,7 +2,7 @@ import { texts } from "../language/language";
 import { showModal } from "../modal/modal";
 import { showNotification } from "../notification/notification";
 import { showPosition } from "../room/room";
-import { Directions, Shapes, initialValues } from "../room/room.types";
+import { Directions, Shapes, StartingValues } from "../room/room.types";
 import { Position, RobotSize } from "./robot.types";
 import robotImg from '/robot.png'
 
@@ -11,6 +11,7 @@ let context: CanvasRenderingContext2D | null;
 let img: HTMLImageElement;
 let currentPosition: Position;
 let currentDirection: Directions;
+let startingValues: StartingValues;
 
 /**
  * Place the robot at a given position in a room
@@ -20,17 +21,18 @@ let currentDirection: Directions;
  * @param {Directions} direction
  * @returns {void}
  */
-const setupRobot = (room: HTMLCanvasElement, position: Position, direction: Directions): void => {
+const setupRobot = (room: HTMLCanvasElement, initialValues: StartingValues): void => {
     context = room.getContext("2d");
     img = new Image();
     img.src = robotImg;
     img.className = "robot";
+    startingValues = initialValues;
 
-    // Set current position and direction to use later for moving the robot
-    currentDirection = direction;
+    // Set current position and direction to use later when moving the robot
+    currentDirection = initialValues.direction;
     currentPosition = {
-        x: position.x,
-        y: position.y
+        x: initialValues.position.x,
+        y: initialValues.position.y
     }
 
     // Canvas needs a preloaded image in order to draw/display it in itself
@@ -39,7 +41,7 @@ const setupRobot = (room: HTMLCanvasElement, position: Position, direction: Dire
             showNotification(true, 'global-notification', 'error', texts.errorSetupRobot);
             return;
         }
-        context.drawImage(img, position.x, position.y, RobotSize.width, RobotSize.height); 
+        context.drawImage(img, initialValues.position.x, initialValues.position.y, RobotSize.width, RobotSize.height); 
     };
 };
 
@@ -152,9 +154,9 @@ const isRobotInsideRoom = (position: Position): boolean => {
     }
 
     // If the room is a circle
-    if(initialValues.shape === Shapes.Circle) {
+    if(startingValues.shape === Shapes.Circle) {
         const radius = context.canvas.width / 2;
-        const squareInPixels = radius / initialValues.amountOfSquares;
+        const squareInPixels = radius / startingValues.amountOfSquares;
 
         const distanceX = position.x * squareInPixels;
         const distanceY = position.y * squareInPixels;
@@ -166,14 +168,20 @@ const isRobotInsideRoom = (position: Position): boolean => {
     }
     
     // If the room is a square
-    if(position.x < 0 || position.y < 0 || position.x >= initialValues.amountOfSquares || position.y >= initialValues.amountOfSquares) {
+    if(position.x < 0 || position.y < 0 || position.x >= startingValues.amountOfSquares || position.y >= startingValues.amountOfSquares) {
         return false;
     }
 
     return true;
 };
 
+/**
+ * Get the current position of the robot
+ */
+const getCurrentPosition = (): Position => currentPosition;
+
 export { 
     setupRobot, 
-    giveRobotCommands
+    giveRobotCommands,
+    getCurrentPosition
 };
