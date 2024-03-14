@@ -1,4 +1,4 @@
-## Instructions
+## Instructions 🤖
 
 - Install dependencies:
 ```sh
