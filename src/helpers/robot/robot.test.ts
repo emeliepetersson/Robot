@@ -1,6 +1,6 @@
 import { Directions, Shapes, StartingValues } from "../room/room.types";
 import { mockDocumentBody } from "../../../mocks/domMocks";
-import { getCurrentPosition, giveRobotCommands, setupRobot } from "./robot";
+import { getCurrentDirection, getCurrentPosition, giveRobotCommands, setupRobot } from "./robot";
 import { RobotSize } from "./robot.types";
 import robotImg from '/robot.png'
 import { setupRoom } from "../room/room";
@@ -147,5 +147,23 @@ describe('Robot', () => {
         // the robot should only be able to move 4 steps in that direction before hitting a wall
         const currentPosition = getCurrentPosition()
         expect(currentPosition.y).toBe(4);
+    });
+
+    it('should change direction when turning left', () => {
+        setupRobot(room, initialValues);
+        passCommandsToRobot('v');
+
+        // Since we start facing north and turn left the new direction should be west
+        const currentDirection = getCurrentDirection();
+        expect(currentDirection).toBe(Directions.West);
+    });
+
+    it('should change direction when turning right', () => {
+        setupRobot(room, initialValues);
+        passCommandsToRobot('h');
+
+        // Since we start facing north and turn right the new direction should be east
+        const currentDirection = getCurrentDirection();
+        expect(currentDirection).toBe(Directions.East);
     });
 });

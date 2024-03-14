@@ -180,8 +180,16 @@ const isRobotInsideRoom = (position: Position): boolean => {
  */
 const getCurrentPosition = (): Position => currentPosition;
 
+/**
+ * Get the current direction of the robot
+ * 
+ * @returns {Directions}
+ */
+const getCurrentDirection = (): Directions => currentDirection;
+
 export { 
     setupRobot, 
     giveRobotCommands,
-    getCurrentPosition
+    getCurrentPosition,
+    getCurrentDirection
 };
