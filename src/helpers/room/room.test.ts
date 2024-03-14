@@ -60,4 +60,14 @@ describe("Room", () => {
         expect(positionCard.classList).toContain('error');
         expect(errorMessage.style.display).toBe('block');
     });
+
+    it('should display an error message if there was a problem setting up the room', () => {
+        // Mocking the getContext method to return null
+        jest.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValueOnce(null);
+
+        setupRoom(document.querySelector<HTMLDivElement>('#house')!, 5, Shapes.Square);
+
+        const notification = document.querySelector<HTMLDivElement>('#global-notification')!;
+        expect(notification.style.display).toBe('block');
+    })
 });
