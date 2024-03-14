@@ -26,8 +26,8 @@ describe('Notification', () => {
         expect(notification.classList.contains('success')).toBe(true);
     });
 
-    it('should display an info notification', () => {
-        showNotification(true, 'user-input', 'info', 'Message');
+    it('should display an info notification if no status is given', () => {
+        showNotification(true, 'user-input', undefined, 'Message');
 
         const notification = document.getElementById('user-input')!;
         expect(notification.classList.contains('info')).toBe(true);
