@@ -1,4 +1,4 @@
-## Set up the project
+## Instructions
 
 - Install dependencies:
 ```sh
