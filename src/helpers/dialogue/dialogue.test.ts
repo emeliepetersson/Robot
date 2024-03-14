@@ -80,7 +80,7 @@ describe("Dialogue", () => {
         expect(notification.innerHTML).toBe(sv.commandsError);
     });
     
-    it('should remove command when clicking on the backspace key', () => {
+    it('should remove invalid command when clicking on the backspace key', () => {
         button.click();
 
         simulateKeyboardEvent('v');
@@ -90,6 +90,18 @@ describe("Dialogue", () => {
         // The input element should only contain the 'v' command
         expect(input.innerHTML).toBe('v');
     });
+
+    it('should remove valid command when clicking on the backspace key', () => {
+        button.click();
+
+        simulateKeyboardEvent('g');
+        simulateKeyboardEvent('h');
+        simulateKeyboardEvent('Backspace');
+
+        // The input element should only contain the 'g' command
+        expect(input.innerHTML).toBe('g');
+    });
+
 
     it('should pass the given commands to the robot', () => {
         button.click();
