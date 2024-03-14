@@ -124,4 +124,21 @@ describe("Dialogue", () => {
         // The modal should only contain the valid commands
         expect(messageElement!.innerHTML).toBe('vhg');
     });
+
+    it('should trigger button event when pressing the enter key', () => {
+        button.click();
+
+        simulateKeyboardEvent('v');
+        simulateKeyboardEvent('h');
+
+        // Make sure the button is focused
+        button.focus();
+        simulateKeyboardEvent('Enter');
+
+        // Set a timeout in order for the button text to have time to change
+        setTimeout(() => {
+            // Check if the button text is back to the default value
+            expect(button.innerHTML).toBe(sv.commandButton);
+        }, 100);
+    });
 });
