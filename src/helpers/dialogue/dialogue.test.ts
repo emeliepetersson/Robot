@@ -2,7 +2,6 @@ import { mockDocumentBody } from "../../../mocks/domMocks";
 import { sv } from "../language/language.types";
 import { setupDialogue } from "./dialogue";
 
-mockDocumentBody();
 let button: HTMLButtonElement;
 let input: HTMLParagraphElement;
 
@@ -19,6 +18,8 @@ const simulateKeyboardEvent = (key: string): void => {
 
 describe("Dialogue", () => {
     beforeAll(() => {
+        mockDocumentBody();
+
         button = document.querySelector<HTMLButtonElement>('#dialogue')!;
         input = document.querySelector<HTMLParagraphElement>('.input')!;
         setupDialogue(button);
@@ -30,8 +31,7 @@ describe("Dialogue", () => {
     });
 
     it("should change button text and display description when clicking on dialogue button", () => {
-        const buttonText = button.innerHTML;
-        expect(buttonText).toBe(sv.commandButton);
+        expect(button.innerHTML).toBe(sv.commandButton);
 
         button.click();
 
@@ -48,7 +48,7 @@ describe("Dialogue", () => {
 
         simulateKeyboardEvent('v');
 
-        // Check if the input is updated
+        // Check if the input element is updated
         expect(input.innerHTML).toBe('v');
     });
 
@@ -118,11 +118,11 @@ describe("Dialogue", () => {
 
         // Check if the modal with the given commands is displayed
         const modal = document.querySelector<HTMLDivElement>('.modal')!;
-        const messageElement = modal!.querySelector('p');
+        const messageElement = modal.querySelector('p')!;
         expect(modal.style.display).toBe('block');
 
         // The modal should only contain the valid commands
-        expect(messageElement!.innerHTML).toBe('vhg');
+        expect(messageElement.innerHTML).toBe('vhg');
     });
 
     it('should trigger button event when pressing the enter key', () => {
