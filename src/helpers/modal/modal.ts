@@ -1,5 +1,8 @@
 import { ModalButtonCb } from "./modal.types";
 
+let modal: HTMLElement;
+let backdrop: HTMLElement;
+
 /**
  * Shows a modal with a title, message and button
  * 
@@ -10,8 +13,8 @@ import { ModalButtonCb } from "./modal.types";
  * @returns {void}
  */
 const showModal = (title: string, message: string, buttonText: string, buttonCallback: ModalButtonCb): void => {
-    const backdrop = document.getElementById('backdrop')!;
-    const modal = document.getElementById('modal')!;
+    backdrop = document.getElementById('backdrop')!;
+    modal = document.getElementById('modal')!;
     const titleElement = modal.querySelector('h2')!;
     const messageElement = modal.querySelector('p')!;
     const button = modal.querySelector('button')!;
@@ -34,9 +37,6 @@ const showModal = (title: string, message: string, buttonText: string, buttonCal
  * @returns {void}
  */
 const closeModal = (): void => {
-    const backdrop = document.getElementById('backdrop')!;
-    const modal = document.getElementById('modal')!;
-
     backdrop.style.display = 'none';
     modal.style.display = 'none';
 }
