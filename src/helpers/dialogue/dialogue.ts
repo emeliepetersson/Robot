@@ -60,7 +60,7 @@ const handleKeyboardEvents = (event: KeyboardEvent): void => {
     case texts.leftCommand:
     case texts.forwardCommand:
       // If the key is equal to the right, left or forward command append it to the input and hide the notification
-      input.innerHTML += event.key;
+      input.innerHTML += sanitizeInput(event.key);
       showNotification(false, 'user-input');
       break;
 
@@ -75,10 +75,10 @@ const handleKeyboardEvents = (event: KeyboardEvent): void => {
       break;
 
     default:
-      // For any other key, wrap the invalid letter in a span to highlight it
+      // For any other letter-key, wrap the invalid letter in a span to highlight it
       if(isLetter(event.key)) {
         const invalidLetter = document.createElement('span');
-        invalidLetter.innerHTML = event.key;
+        invalidLetter.textContent = event.key;
         input.innerHTML += invalidLetter.outerHTML;
       }
   
@@ -98,6 +98,16 @@ const isLetter = (key: string): boolean => {
   // Regular expression to match only letters (both uppercase and lowercase)
   const regex = /^[a-zA-Z]$/;
   return regex.test(key);
+}
+
+/**
+ * Sanitizes input by removing any HTML tags and scripts
+ * 
+ * @param {string} input
+ * @returns {string}
+ */
+const sanitizeInput = (input: string): string => {
+  return input.replace(/<[^>]*>?/gm, '');
 }
 
 export { 
