@@ -14,7 +14,7 @@ const showNotification = (isShowing: boolean, notificationID: string, status?: N
     notification.innerHTML = message ?? '';
     notification.style.display = isShowing ? 'block' : 'none';
     
-    // Remove all classes from the notification (except for the base class)
+    // Remove all status-classes from the notification
     // and add the class for the current status
     if(isShowing){ 
         notification.classList.remove('error', 'success', 'info');
