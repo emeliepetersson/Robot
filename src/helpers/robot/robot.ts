@@ -164,7 +164,10 @@ const isRobotInsideRoom = (position: Position): boolean => {
         // Calculate the robot's distance from the origo and check if it's larger than the radius
         // (The distance is the hypotenuse of a right-angled triangle)
         const distanceFromOrigo = Math.hypot(distanceX, distanceY);
-        return distanceFromOrigo < radius;
+
+        // if position y is a positive integer we have to add the robot size to the distance
+        const robotWidth = position.y > 0 ? RobotSize.width * squareInPixels : 0;
+        return (distanceFromOrigo + robotWidth) <= radius;
     }
     
     // If the room is a square

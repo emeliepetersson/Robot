@@ -123,13 +123,13 @@ describe('Robot', () => {
 
     it('should prevent the robot from moving outside a circular room', () => {
         setupRobot(room, initialValues);
-        passCommandsToRobot('GGGGGGGGGG');
+        passCommandsToRobot('GGGGGGGGGGG');
 
-        // We gave the robot the command to move forward 10 times, but since the robot starts att (0,0) facing north and the room is 10x10, 
-        // the robot should only be able to move 9 steps in that direction before hitting a wall
-        // therefore we expect the new position to be 0,-9
+        // We gave the robot the command to move forward 11 times, 
+        // but since the robot starts att (0,0) facing north and the room is 10x10, 
+        // we expect the new position to be 0,-10
         const currentPosition = getCurrentPosition()
-        expect(currentPosition.y).toBe(-9);
+        expect(currentPosition.y).toBe(-10);
     })
 
     it('should prevent the robot from moving outside a square room', () => {
@@ -143,7 +143,8 @@ describe('Robot', () => {
         setupRobot(room, initalValuesSquare);
         passCommandsToRobot('GGGGGGGGGG');
 
-        // We gave the robot the command to move forward 10 times, but since the robot starts att (0,0) facing south and the room is 5x5,
+        // We gave the robot the command to move forward 10 times, 
+        // but since the robot starts att (0,0) facing south and the room is 5x5,
         // the robot should only be able to move 4 steps in that direction before hitting a wall
         const currentPosition = getCurrentPosition()
         expect(currentPosition.y).toBe(4);
