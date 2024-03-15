@@ -1,4 +1,4 @@
-import { Directions, Shapes, StartingValues } from "../room/room.types";
+import { Directions, PositionAndDirection, Shapes, StartingValues } from "../room/room.types";
 import { mockDocumentBody } from "../../../mocks/domMocks";
 import { getCurrentDirection, getCurrentPosition, giveRobotCommands, setupRobot } from "./robot";
 import { RobotSize } from "./robot.types";
@@ -6,11 +6,10 @@ import robotImg from '/robot.png'
 import { setupRoom } from "../room/room";
 import { texts } from "../language/language";
 
-mockDocumentBody();
-
 let room: HTMLCanvasElement;
 let context: CanvasRenderingContext2D | null;
 let img: HTMLImageElement;
+let notification: HTMLElement;
 
 const initialValues: StartingValues = {
     shape: Shapes.Circle,
@@ -38,9 +37,9 @@ const getErrorCanvas = (): HTMLCanvasElement => {
  * Give the robot commands to move
  * 
  * @param {string} commands
- * @returns {void}
+ * @returns {PositionAndDirection}
  */
-const passCommandsToRobot = (commands: string): void => {
+const passCommandsToRobot = (commands: string): PositionAndDirection => {
     // Add commands to the input
     const input = document.querySelector<HTMLParagraphElement>('.input')!;
     input.innerHTML = commands;
@@ -51,18 +50,20 @@ const passCommandsToRobot = (commands: string): void => {
     const modal = document.getElementById('modal')!;
     const button = modal.querySelector('button');
     button?.click();
+
+    return {
+        position: getCurrentPosition(),
+        direction: getCurrentDirection()
+    }
 };
 
 describe('Robot', () => {
-    beforeEach(() => {
+    beforeAll(() => {
+        mockDocumentBody();
+        
         // Setup the room (canvas)
         setupRoom(document.querySelector<HTMLDivElement>('#house')!, initialValues.amountOfSquares, initialValues.shape)
-
-        // Get reference to the canvas element
         room = document.getElementById('room') as HTMLCanvasElement;
-
-        // Initialize context
-        context = null;
         
         // Mock the drawImage method
         jest.spyOn(CanvasRenderingContext2D.prototype, 'drawImage').mockImplementation(() => null);
@@ -76,10 +77,15 @@ describe('Robot', () => {
             // Ensure fn is not null and call it with a valid this context
             if (fn) fn.call(window, mockEvent);
         });
+
+        notification = document.querySelector<HTMLDivElement>('#global-notification')!;
     });
 
-    it('should render the robot', async () => {
+    beforeEach(()=>{
         setupRobot(room, initialValues);
+    })
+
+    it('should render the robot', async () => {
         context = room.getContext("2d");
         
         // Mock robot image
@@ -88,24 +94,21 @@ describe('Robot', () => {
         img.className = "robot";
 
         expect(context).not.toBeNull();
-
         expect(context!.drawImage).toHaveBeenCalledWith(img, initialValues.position.x, initialValues.position.y, RobotSize.width, RobotSize.height);
     });
 
     it('should move the robot', () => {
-        setupRobot(room, initialValues);
-        passCommandsToRobot('VGG')
+        const { position } = passCommandsToRobot('VGG')
 
-        // Since we gave the robot the command to turn left and then move forward twice the current position should be updated
-        const currentPosition = getCurrentPosition();
-        expect(currentPosition).not.toEqual(initialValues.position);
+        // Since we gave the robot the command to turn left and then move forward twice 
+        // the position should have been updated
+        expect(position).not.toEqual(initialValues.position);
     })
 
     it('should display an error notification if there was a problem setting up the robot', () => {
         const room = getErrorCanvas();
         setupRobot(room, initialValues);
 
-        const notification = document.querySelector<HTMLDivElement>('#global-notification')!;
         expect(notification.style.display).toBe('block');
         expect(notification.innerHTML).toBe(texts.errorSetupRobot);
     });
@@ -116,20 +119,17 @@ describe('Robot', () => {
 
         passCommandsToRobot('VGH')
 
-        const notification = document.querySelector<HTMLDivElement>('#global-notification')!;
         expect(notification.style.display).toBe('block');
         expect(notification.innerHTML).toBe(texts.errorMoveRobot);
     });
 
     it('should prevent the robot from moving outside a circular room', () => {
-        setupRobot(room, initialValues);
-        passCommandsToRobot('GGGGGGGGGGG');
+        const { position } = passCommandsToRobot('GGGGGGGGGGG');
 
         // We gave the robot the command to move forward 11 times, 
         // but since the robot starts att (0,0) facing north and the room is 10x10, 
         // we expect the new position to be 0,-10
-        const currentPosition = getCurrentPosition()
-        expect(currentPosition.y).toBe(-10);
+        expect(position.y).toBe(-10);
     })
 
     it('should prevent the robot from moving outside a square room', () => {
@@ -141,30 +141,25 @@ describe('Robot', () => {
         };
 
         setupRobot(room, initalValuesSquare);
-        passCommandsToRobot('GGGGGGGGGG');
+        const { position } = passCommandsToRobot('GGGGGGGGGG');
 
         // We gave the robot the command to move forward 10 times, 
         // but since the robot starts att (0,0) facing south and the room is 5x5,
         // the robot should only be able to move 4 steps in that direction before hitting a wall
-        const currentPosition = getCurrentPosition()
-        expect(currentPosition.y).toBe(4);
+        expect(position.y).toBe(4);
     });
 
     it('should change direction when turning left', () => {
-        setupRobot(room, initialValues);
-        passCommandsToRobot('v');
+        const { direction } = passCommandsToRobot('v');
 
         // Since we start facing north and turn left the new direction should be west
-        const currentDirection = getCurrentDirection();
-        expect(currentDirection).toBe(Directions.West);
+        expect(direction).toBe(Directions.West);
     });
 
     it('should change direction when turning right', () => {
-        setupRobot(room, initialValues);
-        passCommandsToRobot('h');
+        const { direction } = passCommandsToRobot('h');
 
         // Since we start facing north and turn right the new direction should be east
-        const currentDirection = getCurrentDirection();
-        expect(currentDirection).toBe(Directions.East);
+        expect(direction).toBe(Directions.East);
     });
 });
