@@ -13,9 +13,9 @@ export enum Directions {
 }
 
 export const initialValues: StartingValues = {
-    shape: Shapes.Square,
-    position: { x: 1, y: 2 },
-    amountOfSquares: 5,
+    shape: Shapes.Circle,
+    position: { x: 0, y: 0 },
+    amountOfSquares: 10,
     direction: Directions.North // When the program starts the robot is always facing north
 };
 
@@ -25,3 +25,11 @@ export interface StartingValues {
     amountOfSquares: number;
     direction: Directions;
 }
+
+export type PositionAndDirection = {
+    position: Position;
+    direction: Directions;
+}
+
+export const SquareMultiplier = 100;
+export const CircleMultiplier = 50;

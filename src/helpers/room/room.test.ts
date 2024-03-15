@@ -1,20 +1,21 @@
 import { mockDocumentBody } from "../../../mocks/domMocks";
 import { setupRoom, showPosition } from "./room";
-import { Directions, Shapes } from "./room.types";
-
-mockDocumentBody();
+import { CircleMultiplier, Directions, Shapes, SquareMultiplier } from "./room.types";
 
 describe("Room", () => {
 
-    beforeEach(() => {
+    beforeAll(() => {
+        mockDocumentBody();
+    });
+
+    afterEach(() => {
         //remove the canvas element
         const room = document.getElementById('room');
         if(room) room.remove();
     });
 
-    it("should render a square canvas with the given sixe", () => {
+    it("should render a square canvas with the given size", () => {
         setupRoom(document.querySelector<HTMLDivElement>('#house')!, 5, Shapes.Square);
-        const multiplier = 100;
 
         const room = document.getElementById('room') as HTMLCanvasElement;
         const context = room.getContext('2d');
@@ -22,13 +23,12 @@ describe("Room", () => {
         expect(room).not.toBeNull();
         expect(context).not.toBeNull();
         expect(room.classList).not.toContain('circle');
-        expect(room.width).toBe(5 * multiplier);
-        expect(room.height).toBe(5 * multiplier);
+        expect(room.width).toBe(5 * SquareMultiplier);
+        expect(room.height).toBe(5 * SquareMultiplier);
     });
 
     it('should render a circular canvas', () => {
         setupRoom(document.querySelector<HTMLDivElement>('#house')!, 10, Shapes.Circle);
-        const multiplier = 50;
 
         const room = document.getElementById('room') as HTMLCanvasElement;
         const context = room.getContext('2d');
@@ -36,8 +36,8 @@ describe("Room", () => {
         expect(room).not.toBeNull();
         expect(context).not.toBeNull();
         expect(room.classList).toContain('circle');
-        expect(room.width).toBe(10 * multiplier);
-        expect(room.height).toBe(10 * multiplier);
+        expect(room.width).toBe(10 * CircleMultiplier);
+        expect(room.height).toBe(10 * CircleMultiplier);
     });
 
     it('should display the current position and direction', () => {

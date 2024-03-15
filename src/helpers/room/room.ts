@@ -1,6 +1,6 @@
 import { texts } from "../language/language";
 import { showNotification } from "../notification/notification";
-import { Directions, Shapes } from "./room.types";
+import { CircleMultiplier, Directions, Shapes, SquareMultiplier } from "./room.types";
 
 /**
  * Setup a room with the given number of squares
@@ -16,7 +16,7 @@ const setupRoom = (house: HTMLDivElement, squares: number, shape: Shapes): void 
     room.className = shape;
     
     // To set the dimensions of the canvas element, we need to set the width and height attributes
-    const multiplier = shape === Shapes.Circle ? 50 : 100;
+    const multiplier = shape === Shapes.Circle ? CircleMultiplier : SquareMultiplier;
     room.width = squares * multiplier;
     room.height = squares * multiplier;
     
